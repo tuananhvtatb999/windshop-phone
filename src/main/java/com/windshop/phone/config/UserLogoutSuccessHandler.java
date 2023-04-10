@@ -6,7 +6,7 @@ import com.windshop.phone.entity.User;
 import com.windshop.phone.model.CartDto;
 import com.windshop.phone.model.ProductInCart;
 import com.windshop.phone.repository.CartRepository;
-import com.windshop.phone.repository.ProducRepository;
+import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.repository.ProductCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,7 +26,7 @@ public class UserLogoutSuccessHandler implements LogoutHandler {
     private ProductCartRepository productCartRepository;
 
     @Autowired
-    private ProducRepository producRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     private CartRepository cartRepository;
@@ -48,7 +48,7 @@ public class UserLogoutSuccessHandler implements LogoutHandler {
         for (ProductInCart sanPhamTrongGioHang : cartDto.getProductInCarts()) {
             ProductCart productCart = new ProductCart();
             productCart.setCart(cart);
-            productCart.setProduct(producRepository.getOne(sanPhamTrongGioHang.getMaSanPham()));
+            productCart.setProduct(productRepository.getOne(sanPhamTrongGioHang.getMaSanPham()));
             productCart.setQuantity(sanPhamTrongGioHang.getSoluong());
             productCartRepository.save(productCart);
         }

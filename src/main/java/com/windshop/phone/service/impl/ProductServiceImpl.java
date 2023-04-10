@@ -2,7 +2,7 @@ package com.windshop.phone.service.impl;
 
 import com.windshop.phone.entity.Product;
 import com.windshop.phone.entity.ProductImages;
-import com.windshop.phone.repository.ProducRepository;
+import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class ProductServiceImpl implements IProductService {
     private static final String ROOT_PATH = "C:\\Users\\vtanh5\\IdeaProjects\\windshop-phone\\upload\\";
 
     @Autowired
-    private ProducRepository producRepository;
+    private ProductRepository productRepository;
 
     private boolean isEmptyUploadFile(MultipartFile[] images) {
         if (images == null || images.length <= 0)
@@ -36,7 +36,8 @@ public class ProductServiceImpl implements IProductService {
     public void save(MultipartFile[] productImages, Product product) throws IOException {
         if (product.getId() != null) { // chỉnh sửa
             // lấy dữ liệu cũ của sản phẩm
-            Product productInDb = producRepository.findById(product.getId()).get();
+            Product productInDb = productRepository.findById(product.getId()).get();
+            product.setCreatedDate(productInDb.getCreatedDate());
             product.setUpdatedDate(LocalDateTime.now());
             if (!isEmptyUploadFile(productImages)) { // nếu admin sửa ảnh sản phẩm
                 // lấy danh sách ảnh cũ của sản phẩm
@@ -73,16 +74,16 @@ public class ProductServiceImpl implements IProductService {
             }
         }
 
-        producRepository.save(product);
+        productRepository.save(product);
     }
 
     @Override
     public Page<Product> pageProduct(Pageable pageable) {
-        return producRepository.findAll(pageable);
+        return productRepository.findAll(pageable);
     }
 
     @Override
     public Optional<Product> findById(Integer id) {
-        return producRepository.findById(id);
+        return productRepository.findById(id);
     }
 }

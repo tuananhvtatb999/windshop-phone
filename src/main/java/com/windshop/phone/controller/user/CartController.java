@@ -4,8 +4,7 @@ import com.windshop.phone.entity.*;
 import com.windshop.phone.model.AjaxResponse;
 import com.windshop.phone.model.CartDto;
 import com.windshop.phone.model.ProductInCart;
-import com.windshop.phone.repository.ProducRepository;
-import com.windshop.phone.repository.ProductCartRepository;
+import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.repository.SaleOrderRepository;
 import com.windshop.phone.service.impl.CartServiceImpl;
 import com.windshop.phone.service.impl.UserServiceImpl;
@@ -29,7 +28,7 @@ import java.util.List;
 public class CartController {
 
     @Autowired
-    private ProducRepository producRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     private SaleOrderRepository saleOrderRepository;
@@ -68,7 +67,7 @@ public class CartController {
         // nếu sản phẩm chưa có trong giỏ hàng.
         if (!sanPhamDaCoTrongCartPhaiKhong) {
 
-            Product product = producRepository.getOne(productInCart.getMaSanPham());
+            Product product = productRepository.getOne(productInCart.getMaSanPham());
             productInCart.setTenSanPham(product.getTitle());
             if (product.getPriceSale() != null) {
                 productInCart.setGiaban(product.getPriceSale());
@@ -154,11 +153,11 @@ public class CartController {
         saleOrder.setCustomerAddress(user.getAddress());
         saleOrder.setCustomerPhone(user.getPhoneNumber());
         saleOrder.setCustomerEmail(user.getEmail());
-        saleOrder.setTotal(gioHang.getTotal(producRepository));
+        saleOrder.setTotal(gioHang.getTotal(productRepository));
 
         for (ProductInCart sanPhamTrongGioHang : gioHang.getProductInCarts()) {
             SaleOrderProducts saleOrderProducts = new SaleOrderProducts();
-            saleOrderProducts.setProduct(producRepository.getOne(sanPhamTrongGioHang.getMaSanPham()));
+            saleOrderProducts.setProduct(productRepository.getOne(sanPhamTrongGioHang.getMaSanPham()));
             saleOrderProducts.setQuality(sanPhamTrongGioHang.getSoluong());
             saleOrderProducts.setPrice(sanPhamTrongGioHang.getGiaban());
             saleOrderProducts.setCreatedDate(LocalDateTime.now());

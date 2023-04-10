@@ -78,7 +78,7 @@
 												<c:forEach var="brand" items="${brands}" varStatus="i">
 													<tr>
 														<td><a href="javascript: void(0);"
-															class="text-body font-weight-bold">${i.index+1 }</a></td>
+															class="text-body font-weight-bold">${brand.id }</a></td>
 														<td><span id="title">${brand.name}</span></td>
 														<fmt:parseDate value="${brand.createdDate}" type="date"
 																	   pattern="yyyy-MM-dd" var="parsedDate"/>
@@ -88,10 +88,10 @@
 														<td> <a
 															class="text-danger" data-toggle="modal"
 															data-placement="top" title="" data-original-title="Xóa"
-															data-target="#exampleModal"><i
+															data-target="#exampleModal-${brand.id}"><i
 																class="mdi mdi-close font-size-18"></i></a>
 
-															<div class="modal fade" id="exampleModal" tabindex="-1"
+															<div class="modal fade" id="exampleModal-${brand.id}" tabindex="-1"
 																role="dialog" aria-labelledby="exampleModalLabel"
 																aria-hidden="true">
 																<div class="modal-dialog" role="document">
@@ -106,7 +106,7 @@
 																		</div>
 																		<div class="modal-body">Bạn chắc chắn muốn xóa</div>
 																		<div class="modal-footer">
-																			<form action="${pageContext.request.contextPath}/admin/brands" method="post">
+																			<form action="${pageContext.request.contextPath}/admin/brands?id=${brand.id }" method="post">
 																				<button type="submit"
 																				class="btn btn-primary">OK</button><input type="hidden" name="id" value="${brand.id }">
 																			</form>

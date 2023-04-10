@@ -10,10 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
@@ -30,7 +27,7 @@ public class AdminCategoryController {
     public String get(final ModelMap model, @PathParam("page") Integer page) {
         int pageP = !ObjectUtils.isEmpty(page)? page : 1;
         Pageable pageable = PageRequest.of(pageP-1, 5);
-        Page<Category> categoryPage = categoryRepository.findAll(pageable);
+        Page<Category> categoryPage = categoryRepository.findAllByStatus(1, pageable);
         model.addAttribute("category", categoryPage.getContent());
         model.addAttribute("currentPage", pageP);
         model.addAttribute("total", categoryPage.getTotalPages());
@@ -55,5 +52,13 @@ public class AdminCategoryController {
         category.setCreatedDate(LocalDateTime.now());
         categoryRepository.save(category);
         return "redirect:/admin/add-category?message=success";
+    }
+
+    @PostMapping("/category")
+    public String removeAd(@RequestParam("id") Integer id) {
+        Category category = categoryRepository.getOne(id);
+        category.setStatus(0);
+        categoryRepository.save(category);
+        return "redirect:/admin/category";
     }
 }

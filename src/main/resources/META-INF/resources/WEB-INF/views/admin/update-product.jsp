@@ -12,7 +12,7 @@
 <meta content="Premium Multipurpose Admin & Dashboard Template"
 	name="description">
 <meta content="Themesbrand" name="author">
-<jsp:include page="/WEB-INF/views/back-end/common/css.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/admin/common/css.jsp"></jsp:include>
 </head>
 
 <body data-sidebar="dark">
@@ -20,10 +20,10 @@
 	<!-- Begin page -->
 	<div id="layout-wrapper">
 
-		<jsp:include page="/WEB-INF/views/back-end/common/header.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/admin/common/header.jsp"></jsp:include>
 
 		<!-- ========== Left Sidebar Start ========== -->
-		<jsp:include page="/WEB-INF/views/back-end/common/menu.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/admin/common/menu.jsp"></jsp:include>
 		<!-- Left Sidebar End -->
 
 		<!-- ============================================================== -->
@@ -87,33 +87,11 @@
 														class="form-control" path="price" />
 												</div>
 												<div class="form-group">
-													<label for="price_sale">Giảm giá(%)</label>
+													<label for="price_sale">Giá giảm</label>
 													<form:input id="price_sale" name="price_sale" type="text"
-														class="form-control" path="percentSale" />
+														class="form-control" path="priceSale" />
 												</div>
 
-												<div class="form-group">
-													<label for="procedure">Loại động cơ</label>
-													<form:input id="procedure" name="procedure" type="text"
-														path="procedurePro" class="form-control" />
-												</div>
-												<div class="form-group">
-													<label for="sizeSuf">Dung tích</label>
-													<form:input id="sizeSuf" name="sizeSuf" type="text"
-														path="sizeSuf" class="form-control" />
-												</div>
-												<div class="form-group">
-													<label for="waranty">Hộp số</label>
-													<form:input id="waranty" name="waranty" type="text"
-														path="waranty" class="form-control" />
-												</div>
-												<div class="form-group">
-													<label for="water">Tính năng ABS</label>
-														<label class="pl-5 pr-3" for="waterlabel1">Có</label>
-														<form:radiobutton path="waterproof" value="Có" selected="selected"/>
-														<label class="pl-5 pr-3" for="waterlabel2">Không</label>
-														<form:radiobutton path="waterproof" value="Không"/>
-												</div>
 											</div>
 
 											<div class="col-sm-6">
@@ -153,7 +131,7 @@
 											thay đổi</button>
 										<button type="button" class="btn btn-secondary waves-effect">
 											<a
-												href="${pageContext.request.contextPath}/admin/list-products"
+												href="${pageContext.request.contextPath}/admin/products"
 												class="text-light">Hủy bỏ</a>
 										</button>
 									</form:form>
@@ -166,7 +144,7 @@
 					</div>
 					<!-- end card-->
 					<!-- end row -->
-					<jsp:include page="/WEB-INF/views/back-end/common/footer.jsp"></jsp:include>
+					<jsp:include page="/WEB-INF/views/admin/common/footer.jsp"></jsp:include>
 				</div>
 				<!-- container-fluid -->
 			</div>
@@ -184,7 +162,7 @@
 
 	<!-- Right bar overlay-->
 	<div class="rightbar-overlay"></div>
-	<jsp:include page="/WEB-INF/views/back-end/common/js.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/admin/common/js.jsp"></jsp:include>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#productDesc').summernote();

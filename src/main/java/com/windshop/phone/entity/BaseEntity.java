@@ -21,11 +21,11 @@ public abstract class BaseEntity {
     @Column(name = "id")
     private Integer id; // primary-key
 
-    @Column(name = "created_date", nullable = true)
+    @Column(name = "created_date")
     @CreatedDate
     private LocalDateTime createdDate;
 
-    @Column(name = "updated_date", nullable = true)
+    @Column(name = "updated_date")
     private LocalDateTime updatedDate;
 
     @Column(name = "status", nullable = false)

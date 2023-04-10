@@ -107,7 +107,7 @@
                                                 <fmt:setLocale value="vi_VN"/>
                                                 <td><span><fmt:formatNumber value="${product.price}" type="currency"  currencySymbol="đ"/></span></td>
                                                 <td><span><fmt:formatNumber value="${product.priceSale}" type="currency" currencySymbol="đ"/></span></td>
-                                                <td><c:if test="${product.status == 0 }">
+                                                <td id="status-delete-${product.id}"><c:if test="${product.status == 0 }">
 																<span
                                                                         class="badge badge-pill badge-soft-danger font-size-12"><c:out
                                                                         value="Sản phẩm nghỉ bán"/></span>

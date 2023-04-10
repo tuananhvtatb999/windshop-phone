@@ -78,7 +78,7 @@
                                         <c:forEach var="category" items="${category}" varStatus="i">
                                             <tr>
                                                 <td><a href="javascript: void(0);"
-                                                       class="text-body font-weight-bold">${i.index+1 }</a></td>
+                                                       class="text-body font-weight-bold">${category.id }</a></td>
                                                 <td><span id="title">${category.name}</span></td>
                                                 <fmt:parseDate value="${category.createdDate}" type="date"
                                                                pattern="yyyy-MM-dd" var="parsedDate"/>
@@ -88,10 +88,10 @@
                                                 <td> <a
                                                         class="text-danger" data-toggle="modal"
                                                         data-placement="top" title="" data-original-title="Xóa"
-                                                        data-target="#exampleModal"><i
+                                                        data-target="#exampleModal-${category.id}"><i
                                                         class="mdi mdi-close font-size-18"></i></a>
 
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                    <div class="modal fade" id="exampleModal-${category.id}" tabindex="-1"
                                                          role="dialog" aria-labelledby="exampleModalLabel"
                                                          aria-hidden="true">
                                                         <div class="modal-dialog" role="document">

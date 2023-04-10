@@ -23,6 +23,6 @@ public class BrandServiceImpl implements IBrandSerVice {
 
     @Override
     public Page<Brand> getBrands(Pageable pageable) {
-        return brandRepository.findAll(pageable);
+        return brandRepository.findAllByStatus(pageable, 1);
     }
 }

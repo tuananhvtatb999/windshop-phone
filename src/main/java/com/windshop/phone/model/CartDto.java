@@ -1,7 +1,7 @@
 package com.windshop.phone.model;
 
 import com.windshop.phone.entity.Product;
-import com.windshop.phone.repository.ProducRepository;
+import com.windshop.phone.repository.ProductRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class CartDto {
         this.ProductInCarts = ProductInCarts;
     }
 
-    public BigDecimal getTotal(ProducRepository productRepo) {
+    public BigDecimal getTotal(ProductRepository productRepo) {
         BigDecimal decimal = BigDecimal.ZERO;
         for (ProductInCart phamTrongGioHang : ProductInCarts) {
             Product product = productRepo.getOne(phamTrongGioHang.getMaSanPham());
