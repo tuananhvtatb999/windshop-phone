@@ -46,7 +46,7 @@ public class IndexController {
     public String shopPage(final HttpServletRequest request, final ModelMap model,
                            @PathParam("page") Integer page) {
         int pageP = !ObjectUtils.isEmpty(page)? page : 1;
-        Pageable pageable = PageRequest.of(pageP-1, 5);
+        Pageable pageable = PageRequest.of(pageP-1, 12);
         Page<Product> productList = productService.pageProduct(pageable);
         model.addAttribute("products", productList.getContent());
         model.addAttribute("currentPage", pageP);

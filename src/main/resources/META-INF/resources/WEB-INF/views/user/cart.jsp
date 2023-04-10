@@ -31,11 +31,11 @@
                     <li ><a href="${pageContext.request.contextPath}/home">Home</a></li>
                     <li><a href="${pageContext.request.contextPath}/shop">Shop page</a></li>
                     <li><a href="${pageContext.request.contextPath}/single-product">Single product</a></li>
-                    <li><a href="${pageContext.request.contextPath}/cart">Cart</a></li>
+                    <li class="active"><a href="${pageContext.request.contextPath}/user/cart">Cart</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/checkout">Checkout</a></li>
                     <!-- <li><a href="#">Category</a></li>
                     <li><a href="#">Others</a></li> -->
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -59,60 +59,60 @@
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Search Products</h2>
-                    <form action="#">
-                        <input type="text" placeholder="Search products...">
-                        <input type="submit" value="Search">
-                    </form>
-                </div>
+<%--            <div class="col-md-4">--%>
+<%--                <div class="single-sidebar">--%>
+<%--                    <h2 class="sidebar-title">Search Products</h2>--%>
+<%--                    <form action="#">--%>
+<%--                        <input type="text" placeholder="Search products...">--%>
+<%--                        <input type="submit" value="Search">--%>
+<%--                    </form>--%>
+<%--                </div>--%>
 
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Products</h2>
-                    <div class="thubmnail-recent">
-                        <img src="/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins> 700.00</ins> <del> 800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins> 700.00</ins> <del> 800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins> 700.00</ins> <del> 800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins> 700.00</ins> <del> 800.00</del>
-                        </div>
-                    </div>
-                </div>
+<%--                <div class="single-sidebar">--%>
+<%--                    <h2 class="sidebar-title">Products</h2>--%>
+<%--                    <div class="thubmnail-recent">--%>
+<%--                        <img src="/img/product-thumb-1.jpg" class="recent-thumb" alt="">--%>
+<%--                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>--%>
+<%--                        <div class="product-sidebar-price">--%>
+<%--                            <ins> 700.00</ins> <del> 800.00</del>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <div class="thubmnail-recent">--%>
+<%--                        <img src="/img/product-thumb-1.jpg" class="recent-thumb" alt="">--%>
+<%--                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>--%>
+<%--                        <div class="product-sidebar-price">--%>
+<%--                            <ins> 700.00</ins> <del> 800.00</del>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <div class="thubmnail-recent">--%>
+<%--                        <img src="/img/product-thumb-1.jpg" class="recent-thumb" alt="">--%>
+<%--                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>--%>
+<%--                        <div class="product-sidebar-price">--%>
+<%--                            <ins> 700.00</ins> <del> 800.00</del>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <div class="thubmnail-recent">--%>
+<%--                        <img src="/img/product-thumb-1.jpg" class="recent-thumb" alt="">--%>
+<%--                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>--%>
+<%--                        <div class="product-sidebar-price">--%>
+<%--                            <ins> 700.00</ins> <del> 800.00</del>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
 
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Recent Posts</h2>
-                    <ul>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                    </ul>
-                </div>
-            </div>
+<%--                <div class="single-sidebar">--%>
+<%--                    <h2 class="sidebar-title">Recent Posts</h2>--%>
+<%--                    <ul>--%>
+<%--                        <li><a href="#">Sony Smart TV - 2015</a></li>--%>
+<%--                        <li><a href="#">Sony Smart TV - 2015</a></li>--%>
+<%--                        <li><a href="#">Sony Smart TV - 2015</a></li>--%>
+<%--                        <li><a href="#">Sony Smart TV - 2015</a></li>--%>
+<%--                        <li><a href="#">Sony Smart TV - 2015</a></li>--%>
+<%--                    </ul>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="product-content-right">
                     <div class="woocommerce">
                             <table cellspacing="0" class="shop_table cart mt-5">
@@ -136,10 +136,10 @@
                                             <a title="Remove this item" class="remove" onclick="location.href='${pageContext.request.contextPath}/hien-thi-san-pham-trong-gio-hang/${item.maSanPham}'">×</a>
                                         </td>
                                         <td class="product-thumbnail">
-                                            <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="../file/upload/${item.urlImage }"></a>
+                                            <a href="${pageContext.request.contextPath}/single-product?id=${item.maSanPham}"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="../file/upload/${item.urlImage }"></a>
                                         </td>
                                         <td class="product-name">
-                                            <a href="single-product.html">${item.tenSanPham }</a>
+                                            <a href="${pageContext.request.contextPath}/single-product?id=${item.maSanPham}">${item.tenSanPham }</a>
                                         </td>
                                         <td class="product-price" >
                                             <span class="amount" id="price"><fmt:formatNumber type="number" maxIntegerDigits="13"

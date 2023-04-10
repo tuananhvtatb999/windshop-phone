@@ -84,7 +84,7 @@ public class CartController {
         return ResponseEntity.ok(new AjaxResponse(200, String.valueOf(cartDto.getProductInCarts().size())));
     }
 
-    @GetMapping(value = "/cart")
+    @GetMapping(value = "/user/cart")
     public String cart(final HttpServletRequest request) {
 
         HttpSession httpSession = request.getSession();

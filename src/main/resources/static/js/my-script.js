@@ -25,13 +25,6 @@ function runScript(e, msp) {
     }
 }
 
-$(document).ready(function () {
-    $('#price, #priceSale').html().toLocaleString('vi-VN', {
-        style: 'currency',
-        currency: 'VND'
-    });
-});
-
 var Cart = {
     redirect: function(){
         window.location.href="/sign-in"

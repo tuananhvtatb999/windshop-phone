@@ -31,6 +31,12 @@
                                     <span>Thương hiệu</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/admin/category">
+                                    <i class="fas fa-tag"></i>
+                                    <span>Danh mục</span>
+                                </a>
+                            </li>
                             
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">

@@ -30,11 +30,11 @@
                     <li ><a href="${pageContext.request.contextPath}/home">Home</a></li>
                     <li class="active"><a href="${pageContext.request.contextPath}/shop">Shop page</a></li>
                     <li><a href="${pageContext.request.contextPath}/single-product">Single product</a></li>
-                    <li><a href="${pageContext.request.contextPath}/cart">Cart</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/cart">Cart</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/checkout">Checkout</a></li>
                     <!-- <li><a href="#">Category</a></li>
                     <li><a href="#">Others</a></li> -->
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -60,7 +60,7 @@
         <div class="row">
             <c:forEach var="product" items="${products}">
 
-                <div class="col-md-3 col-sm-6">
+                <div class="col-sm-4">
                     <div class="single-shop-product">
                         <div class="product-upper">
                         <c:forEach var="productImages" end="0"
@@ -176,11 +176,13 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/user/common/js.jsp"></jsp:include>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 <script type="text/javascript">
     $(function() {
         window.pagObj = $('#pagination').twbsPagination({
             totalPages : ${total},
             startPage: ${currentPage},
+            visiblePages: 5,
             onPageClick : function(event, page) {
                 console.info(page + ' (from options)');
             }

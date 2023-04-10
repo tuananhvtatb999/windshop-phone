@@ -44,9 +44,8 @@ public class AdminProductController extends BaseController {
     }
 
     @PostMapping(value ="/add-product")
-    public String addproduct(@RequestParam("product_images") MultipartFile[] productImages,
-                             final ModelMap model, final HttpServletRequest request, final HttpServletResponse response,
-                             @ModelAttribute("product") Product product)
+    public String addproduct(@RequestParam("product_images") MultipartFile[] productImages,@ModelAttribute("product") Product product,
+                             final ModelMap model)
             throws IOException {
         productService.save(productImages, product);
         model.addAttribute("product", product);

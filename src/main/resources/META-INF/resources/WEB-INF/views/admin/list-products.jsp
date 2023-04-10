@@ -105,7 +105,7 @@
                                                                 pattern='dd-MM-yyyy'/>
                                                 <td>${updateFormat}</td>
                                                 <fmt:setLocale value="vi_VN"/>
-                                                <td><span><fmt:formatNumber value="${product.price}" type="currency" currencySymbol="đ"/></span></td>
+                                                <td><span><fmt:formatNumber value="${product.price}" type="currency"  currencySymbol="đ"/></span></td>
                                                 <td><span><fmt:formatNumber value="${product.priceSale}" type="currency" currencySymbol="đ"/></span></td>
                                                 <td><c:if test="${product.status == 0 }">
 																<span
@@ -188,6 +188,10 @@
         }).on('page', function(event, page) {
             window.location.href = "${pageContext.request.contextPath}/admin/products?page=" + page;
         });
+    });
+    $(document).ready(function () {
+        console.log(Number($('#price-currency').text()))
+
     });
 </script>
 </body>

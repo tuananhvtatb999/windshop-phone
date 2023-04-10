@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements IProductService {
 
-    private static final String ROOT_PATH = "D:\\Template\\windshop-phone\\upload\\";
+    private static final String ROOT_PATH = "C:\\Users\\vtanh5\\IdeaProjects\\windshop-phone\\upload\\";
 
     @Autowired
     private ProducRepository producRepository;
