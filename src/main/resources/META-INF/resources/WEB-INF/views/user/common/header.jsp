@@ -21,9 +21,8 @@
                 <div class="user-menu">
                     <ul>
                         <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                        <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
                         <li><a href="${pageContext.request.contextPath}/user/cart"><i class="fa fa-user"></i> My Cart</a></li>
-                        <li><a href="${pageContext.request.contextPath}/user/checkout"><i class="fa fa-user"></i> Checkout</a></li>
+<%--                        <li><a href="${pageContext.request.contextPath}/user/checkout"><i class="fa fa-user"></i> Checkout</a></li>--%>
                     </ul>
                 </div>
             </div>
@@ -39,8 +38,8 @@
                         <c:if test="${pageContext.request.userPrincipal.name == null}">
                             <li><a href="${pageContext.request.contextPath}/sign-in"><i class="fa fa-user"></i> Login</a></li>
                         </c:if>
-                        <span>|</span>
                         <c:if test="${pageContext.request.userPrincipal.name != null}">
+                            <span>|</span>
                             <li style="font-weight: bold">
                             <a href="${pageContext.request.contextPath}/logout">Logout</a></li>
                         </c:if>

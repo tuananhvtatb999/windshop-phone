@@ -167,7 +167,10 @@ public class CartController {
         saleOrderRepository.save(saleOrder);
 
         Cart cart = cartService.findByUserEmail(user.getEmail(), 1);
-        cartService.delete(cart);
+        if (cart != null) {
+            cartService.delete(cart);
+        }
+
         httpSession.removeAttribute("GIO_HANG");
         httpSession.removeAttribute("SL_SP_GIO_HANG");
         model.addAttribute("message",

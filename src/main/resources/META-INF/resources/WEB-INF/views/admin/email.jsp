@@ -7,14 +7,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time"  %>
 <meta charset="utf-8">
 <title>Email</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta content="Premium Multipurpose Admin & Dashboard Template"
 	name="description">
 <meta content="Themesbrand" name="author">
-<jsp:include page="/WEB-INF/views/back-end/common/css.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/admin/common/css.jsp"></jsp:include>
 </head>
 
 <body data-sidebar="dark">
@@ -22,10 +21,10 @@
 	<!-- Begin page -->
 	<div id="layout-wrapper">
 
-		<jsp:include page="/WEB-INF/views/back-end/common/header.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/admin/common/header.jsp"></jsp:include>
 
 		<!-- ========== Left Sidebar Start ========== -->
-		<jsp:include page="/WEB-INF/views/back-end/common/menu.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/admin/common/menu.jsp"></jsp:include>
 		<!-- Left Sidebar End -->
 		
 		<div class="main-content">
@@ -51,13 +50,13 @@
 									<div class="row mb-2">
 										<div class="col-sm-4">
 											<div class="search-box mr-2 mb-2 d-inline-block">
-											<form method="get" action="${pageContext.request.contextPath}/admin/list-products">
-												<div class="position-relative" id="position-relative">
-													<input type="text" class="form-control"
-														placeholder="Search..." id="search" name="search"> 
-														<i
-														class="bx bx-search-alt search-icon"></i>
-												</div></form>
+<%--											<form method="get" action="${pageContext.request.contextPath}/admin/list-products">--%>
+<%--												<div class="position-relative" id="position-relative">--%>
+<%--													<input type="text" class="form-control"--%>
+<%--														placeholder="Search..." id="search" name="search"> --%>
+<%--														<i--%>
+<%--														class="bx bx-search-alt search-icon"></i>--%>
+<%--												</div></form>--%>
 											</div>
 										</div>
 
@@ -88,10 +87,10 @@
 														<td> <a
 															class="text-danger" data-toggle="modal"
 															data-placement="top" title="" data-original-title="Xóa"
-															data-target="#exampleModal"><i
+															data-target="#exampleModal-${contact.id}"><i
 																class="mdi mdi-close font-size-18"></i></a>
 
-															<div class="modal fade" id="exampleModal" tabindex="-1"
+															<div class="modal fade" id="exampleModal-${contact.id}" tabindex="-1"
 																role="dialog" aria-labelledby="exampleModalLabel"
 																aria-hidden="true">
 																<div class="modal-dialog" role="document">
@@ -106,7 +105,7 @@
 																		</div>
 																		<div class="modal-body">Bạn chắc chắn muốn xóa</div>
 																		<div class="modal-footer">
-																			<form action="${pageContext.request.contextPath}/admin/email" method="post">
+																			<form action="${pageContext.request.contextPath}/admin/email?id=${contact.id }" method="post">
 																				<button type="submit"
 																				class="btn btn-primary">OK</button><input type="hidden" name="id" value="${contact.id }">
 																			</form>
@@ -122,27 +121,9 @@
 											</tbody>
 										</table>
 									</div>
-									<ul
-										class="pagination pagination-rounded justify-content-end mb-2">
-										<li class="page-item disabled"><a class="page-link"
-											href="javascript: void(0);" aria-label="Previous"> <i
-												class="mdi mdi-chevron-left"></i>
-										</a></li>
-										<li class="page-item active"><a class="page-link"
-											href="javascript: void(0);">1</a></li>
-										<li class="page-item"><a class="page-link"
-											href="javascript: void(0);">2</a></li>
-										<li class="page-item"><a class="page-link"
-											href="javascript: void(0);">3</a></li>
-										<li class="page-item"><a class="page-link"
-											href="javascript: void(0);">4</a></li>
-										<li class="page-item"><a class="page-link"
-											href="javascript: void(0);">5</a></li>
-										<li class="page-item"><a class="page-link"
-											href="javascript: void(0);" aria-label="Next"> <i
-												class="mdi mdi-chevron-right"></i>
-										</a></li>
-									</ul>
+									<nav aria-label="Page navigation" class="mt-3">
+										<ul class="pagination pagesss" id="pagination"></ul>
+									</nav>
 								</div>
 							</div>
 						</div>
@@ -168,7 +149,7 @@
 			</footer>
 		</div>
 		<!-- Footer -->
-		<jsp:include page="/WEB-INF/views/back-end/common/footer.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/admin/common/footer.jsp"></jsp:include>
 		<!-- Footer End-->
 
 	</div>
@@ -179,7 +160,19 @@
 	<!-- Right bar overlay-->
 	<div class="rightbar-overlay"></div>
 
-	<jsp:include page="/WEB-INF/views/back-end/common/js.jsp"></jsp:include>
-
+	<jsp:include page="/WEB-INF/views/admin/common/js.jsp"></jsp:include>
+	<script type="text/javascript">
+		$(function() {
+			window.pagObj = $('#pagination').twbsPagination({
+				totalPages : ${total},
+				startPage: ${currentPage},
+				onPageClick : function(event, page) {
+					console.info(page + ' (from options)');
+				}
+			}).on('page', function(event, page) {
+				window.location.href = "${pageContext.request.contextPath}/admin/brands?page=" + page;
+			});
+		});
+	</script>
 </body>
 </html>
