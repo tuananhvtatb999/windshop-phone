@@ -7,22 +7,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Danh sách sản phẩm</title>
-    <jsp:include page="/WEB-INF/views/back-end/common/css.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/admin/common/css.jsp"></jsp:include>
 </head>
 <body data-sidebar="dark">
 
 <!-- Begin page -->
 <div id="layout-wrapper">
 
-    <jsp:include page="/WEB-INF/views/back-end/common/header.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/admin/common/header.jsp"></jsp:include>
 
     <!-- ========== Left Sidebar Start ========== -->
-    <jsp:include page="/WEB-INF/views/back-end/common/menu.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/views/admin/common/menu.jsp"></jsp:include>
     <!-- Left Sidebar End -->
 
     <div class="main-content">
@@ -368,28 +367,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <ul
-                                        class="pagination pagination-rounded justify-content-end mb-2">
-                                    <li class="page-item disabled"><a class="page-link"
-                                                                      href="javascript: void(0);" aria-label="Previous">
-                                        <i
-                                                class="mdi mdi-chevron-left"></i>
-                                    </a></li>
-                                    <li class="page-item active"><a class="page-link"
-                                                                    href="javascript: void(0);">1</a></li>
-                                    <li class="page-item"><a class="page-link"
-                                                             href="javascript: void(0);">2</a></li>
-                                    <li class="page-item"><a class="page-link"
-                                                             href="javascript: void(0);">3</a></li>
-                                    <li class="page-item"><a class="page-link"
-                                                             href="javascript: void(0);">4</a></li>
-                                    <li class="page-item"><a class="page-link"
-                                                             href="javascript: void(0);">5</a></li>
-                                    <li class="page-item"><a class="page-link"
-                                                             href="javascript: void(0);" aria-label="Next"> <i
-                                            class="mdi mdi-chevron-right"></i>
-                                    </a></li>
-                                </ul>
+                                <nav aria-label="Page navigation" class="mt-3">
+                                    <ul class="pagination pagesss" id="pagination"></ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
@@ -413,7 +393,7 @@
     <!-- end main content-->
 
     <!-- Footer -->
-    <jsp:include page="/WEB-INF/views/back-end/common/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/admin/common/footer.jsp" />
     <!-- Footer End-->
 
 </div>
@@ -423,13 +403,24 @@
 <!-- Right bar overlay-->
 <div class="rightbar-overlay"></div>
 
-<jsp:include page="/WEB-INF/views/back-end/common/js.jsp" />
+<jsp:include page="/WEB-INF/views/admin/common/js.jsp" />
 <script type="text/javascript">
     document.getElementById('search').onkeypress = function (e) {
         if (e.keyCode == 13) {
             document.getElementById('search').click();
         }
     }
+    $(function() {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages : ${total},
+            startPage: ${currentPage},
+            onPageClick : function(event, page) {
+                console.info(page + ' (from options)');
+            }
+        }).on('page', function(event, page) {
+            window.location.href = "${pageContext.request.contextPath}/admin/brands?page=" + page;
+        });
+    });
 </script>
 </body>
 </html>

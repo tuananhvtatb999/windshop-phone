@@ -48,17 +48,6 @@
                                     <li><a href="email-read.html">Read Email</a></li>
                                 </ul>
                             </li>
-                            
-                            <li>
-                                <a href="javascript: void(0);" class="has-arrow waves-effect">
-                                    <i class="fas fa-blog"></i>
-                                    <span>Blogs</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="${pageContext.request.contextPath}/admin/list-blogs">Danh sách Blogs</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/admin/add-blogs">Thêm Blogs</a></li>
-                                </ul>
-                            </li>
 
                         </ul>
                     </div>
