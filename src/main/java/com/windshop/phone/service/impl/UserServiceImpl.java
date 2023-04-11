@@ -18,6 +18,9 @@ import java.io.IOException;
 
 @Service
 public class UserServiceImpl implements IUserService {
+
+    private static final String ROOT_PATH = "D:\\Template\\windshop-phone\\upload";
+
     @Autowired
     private UserRepository userRepository;
 
