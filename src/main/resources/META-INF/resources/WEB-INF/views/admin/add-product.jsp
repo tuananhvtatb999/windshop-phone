@@ -90,6 +90,11 @@
 													<label for="price_sale">Giá giảm</label> <form:input id="price_sale"
 														name="price_sale" type="text" class="form-control" path="priceSale"/>
 												</div>
+												<div class="form-group">
+													<label for="quantity">Số lượng</label>
+													<form:input id="quantity" name="quantity" type="text"
+																class="form-control" path="quantity" />
+												</div>
 											</div>
 
 											<div class="col-sm-6">

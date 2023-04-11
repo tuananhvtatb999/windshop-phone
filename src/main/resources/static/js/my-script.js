@@ -205,7 +205,7 @@ var Product = {
 }
 
 var User = {
-    delete: function(idP) {
+    delete: function (idP) {
         var id = idP;
         var ok = confirm("Bạn chắc chắn muốn xóa!");
         $.ajax({
@@ -215,19 +215,19 @@ var User = {
             data: JSON.stringify(id), // object json -> string json
 
             dataType: "json", // dữ liệu từ web-service trả về là json.
-            success: function(jsonResult) { // được gọi khi web-service trả về dữ liệu.
+            success: function (jsonResult) { // được gọi khi web-service trả về dữ liệu.
                 if (jsonResult.status === 200) {
                     if (ok) {
-                        $('#status-delete-'+idP).html('<span\n' +
+                        $('#status-delete-' + idP).html('<span\n' +
                             'class="badge badge-pill badge-soft-danger font-size-12">Người dùng đã bị xóa hoặc không sử dụng</span>')
-                    }else{
+                    } else {
                         return;
                     }
                 } else {
                     alert('loi');
                 }
             },
-            error: function(jqXhr, textStatus, errorMessage) { // error callback
+            error: function (jqXhr, textStatus, errorMessage) { // error callback
 
             }
         });
@@ -295,11 +295,11 @@ var Account = {
         //     showNotification('top', 'right', 'Fill fully!', 1);
         //     return;
         // }
-        if(!isEmail($('#email').val())) {
+        if (!isEmail($('#email').val())) {
             showNotification('top', 'right', 'Email invalid!', 4);
             return;
         }
-        if(!isVietnamesePhoneNumber($('#phoneNumber').val())) {
+        if (!isVietnamesePhoneNumber($('#phoneNumber').val())) {
             showNotification('top', 'right', 'Phone number invalid!', 4);
             return;
         }
@@ -356,3 +356,4 @@ function isVietnamesePhoneNumber(number) {
         return
     }
     return /(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b/g.test(number);
+}

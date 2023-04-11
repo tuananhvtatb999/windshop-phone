@@ -29,6 +29,6 @@ public class WebConf implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/file/upload/**").addResourceLocations("file:C:\\Users\\vtanh5\\IdeaProjects\\windshop-phone\\upload\\");
+        registry.addResourceHandler("/file/upload/**").addResourceLocations("file:D:\\Template\\windshop-phone\\upload\\");
     }
 }

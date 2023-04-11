@@ -27,7 +27,8 @@ public class UserValidator implements Validator {
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         String regexPatternPass = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (IUserService.findByEmail(user.getEmail()) != null) {

@@ -90,7 +90,7 @@
                     <li><a href="${pageContext.request.contextPath}/user/checkout">Checkout</a></li>
                     <!-- <li><a href="#">Category</a></li>
                     <li><a href="#">Others</a></li> -->
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
                 </ul>
             </div>
         </div>

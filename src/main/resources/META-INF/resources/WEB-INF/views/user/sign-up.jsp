@@ -30,13 +30,21 @@
 <%--                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>--%>
 <%--                            <input type="text" name="name" id="name" placeholder="Your Name"/>--%>
 <%--                        </div>--%>
-                        <spring:bind path="username">
+                        <spring:bind path="firstName">
                             <div style="${status.error ? 'position: relative' : 'margin-bottom:25px'}">
                             <div class="form-group ${status.error ? 'has-error' : ''}">
-                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <form:input type="text" name="username" id="username" placeholder="Your Name" path="username"/>
+                                <label for="firstName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <form:input type="text" name="firstName" id="firstName" placeholder="Your First Name" path="firstName"/>
                             </div>
-                            <form:errors path="username" cssStyle="color: red ;position: absolute;bottom: -75%;"/></div>
+                            <form:errors path="firstName" cssStyle="color: red ;position: absolute;bottom: -75%;"/></div>
+                        </spring:bind>
+                        <spring:bind path="lastName">
+                            <div style="${status.error ? 'position: relative' : 'margin-bottom:25px'}">
+                                <div class="form-group ${status.error ? 'has-error' : ''}">
+                                    <label for="lastName"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                    <form:input type="text" name="lastName" id="lastName" placeholder="Your Last Name" path="lastName"/>
+                                </div>
+                                <form:errors path="lastName" cssStyle="color: red ;position: absolute;bottom: -75%;"/></div>
                         </spring:bind>
                         <spring:bind path="email">
                         <div style="${status.error ? 'position: relative' : 'margin-bottom:25px'}">
@@ -65,11 +73,11 @@
                             <form:errors path="rePass" cssStyle="color: red ;position: absolute;bottom: -70%;"/>
                     </div>
                         </spring:bind>
-                        <div class="form-group">
-                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
-                                statements in <a href="#" class="term-service">Terms of service</a></label>
-                        </div>
+<%--                        <div class="form-group">--%>
+<%--                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>--%>
+<%--                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all--%>
+<%--                                statements in <a href="#" class="term-service">Terms of service</a></label>--%>
+<%--                        </div>--%>
                         <div class="form-group form-button">
                             <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                         </div>

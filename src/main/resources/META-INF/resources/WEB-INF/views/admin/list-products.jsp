@@ -82,6 +82,7 @@
                                             <th>Ngày sửa gần nhất</th>
                                             <th>Giá</th>
                                             <th>Giá sale</th>
+                                            <th>Số lượng</th>
                                             <th>Trạng thái</th>
                                             <th>Sửa/ Xóa</th>
 
@@ -107,6 +108,7 @@
                                                 <fmt:setLocale value="vi_VN"/>
                                                 <td><span><fmt:formatNumber value="${product.price}" type="currency"  currencySymbol="đ"/></span></td>
                                                 <td><span><fmt:formatNumber value="${product.priceSale}" type="currency" currencySymbol="đ"/></span></td>
+                                                <td>${product.quantity}</td>
                                                 <td id="status-delete-${product.id}"><c:if test="${product.status == 0 }">
 																<span
                                                                         class="badge badge-pill badge-soft-danger font-size-12"><c:out
