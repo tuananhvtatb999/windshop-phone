@@ -8,9 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Table(name = "tbl_users")
@@ -24,8 +26,11 @@ public class User extends BaseEntity implements UserDetails {
      */
     private static final long serialVersionUID = -1956195527415323516L;
 
-    @Column(name = "username", length = 45, nullable = false)
-    private String username;
+    @Column(name = "first_name", length = 45, nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", length = 45, nullable = false)
+    private String lastName;
 
     @Column(name = "password", length = 100, nullable = false)
     private String password;
@@ -42,6 +47,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "role")
     private String role;
 
+    @Column(name = "image")
+    private String avatar;
+
     private String rePass;
 
     @Override
@@ -56,7 +64,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return firstName + " " + lastName;
     }
 
     @Override

@@ -71,7 +71,7 @@
 
 <script type="text/javascript">
     <% if (request.getAttribute("message").equals("success")) { %>
-    showNotification('top','right','Registration success!');
+    showNotification('top','right','Registration success!', 1);
     <% } %>
 </script>
 </body>

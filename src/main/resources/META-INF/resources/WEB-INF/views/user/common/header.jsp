@@ -20,7 +20,7 @@
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/account"><i class="fa fa-user"></i> My Account</a></li>
                         <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
                         <li><a href="${pageContext.request.contextPath}/user/cart"><i class="fa fa-user"></i> My Cart</a></li>
                         <li><a href="${pageContext.request.contextPath}/user/checkout"><i class="fa fa-user"></i> Checkout</a></li>
@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="logo">
-                    <h1><a href="./"><img src="/img/logo1.jpg"></a></h1>
+                    <h1><a href="${pageContext.request.contextPath}/home"><img src="/img/logo1.jpg"></a></h1>
                 </div>
             </div>
 
