@@ -1,7 +1,7 @@
 package com.windshop.phone.service.impl;
 
 import com.windshop.phone.entity.Product;
-import com.windshop.phone.entity.ProductImages;
+import com.windshop.phone.entity.ProductImage;
 import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +41,10 @@ public class ProductServiceImpl implements IProductService {
             product.setUpdatedDate(LocalDateTime.now());
             if (!isEmptyUploadFile(productImages)) { // nếu admin sửa ảnh sản phẩm
                 // lấy danh sách ảnh cũ của sản phẩm
-                List<ProductImages> oldProductImages = productInDb.getProductImages();
+                List<ProductImage> oldProductImage = productInDb.getProductImages();
 
                 // xoá ảnh cũ trên vật lí(host)
-                for (ProductImages _images : oldProductImages) {
+                for (ProductImage _images : oldProductImage) {
                     new File(ROOT_PATH + _images.getPath()).delete();
                 }
 
@@ -67,7 +67,7 @@ public class ProductServiceImpl implements IProductService {
                 productImage.transferTo(new File(
                         ROOT_PATH + productImage.getOriginalFilename()));
 
-                ProductImages _productImages = new ProductImages();
+                ProductImage _productImages = new ProductImage();
                 _productImages.setPath(productImage.getOriginalFilename());
                 _productImages.setTitle(productImage.getOriginalFilename());
                 product.addProductImages(_productImages);

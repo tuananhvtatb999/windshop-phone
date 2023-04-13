@@ -87,7 +87,7 @@
                     <li><a href="${pageContext.request.contextPath}/shop">Shop page</a></li>
                     <li class="active"><a href="${pageContext.request.contextPath}/single-product">Single product</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/cart">Cart</a></li>
-                    <li><a href="${pageContext.request.contextPath}/user/checkout">Checkout</a></li>
+<%--                    <li><a href="${pageContext.request.contextPath}/user/checkout">Checkout</a></li>--%>
                     <!-- <li><a href="#">Category</a></li>
                     <li><a href="#">Others</a></li> -->
                     <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
@@ -208,7 +208,7 @@
                                 </form>
 
                                 <div class="product-inner-category">
-                                    <p>Category: <a href="">Summer</a>. Tags: <a href="">awesome</a>, <a href="">best</a>, <a href="">sale</a>, <a href="">shoes</a>. </p>
+                                    <p>Category: <a href="">${product.category.name}</a></p>
                                 </div>
 
                                 <div role="tabpanel">

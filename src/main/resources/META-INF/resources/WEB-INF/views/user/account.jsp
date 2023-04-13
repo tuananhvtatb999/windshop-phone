@@ -29,9 +29,9 @@
                 <ul class="nav navbar-nav">
                     <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
                     <li><a href="${pageContext.request.contextPath}/shop">Shop page</a></li>
-                    <li><a href="${pageContext.request.contextPath}/single-product">Single product</a></li>
+<%--                    <li><a href="${pageContext.request.contextPath}/single-product">Single product</a></li>--%>
                     <li><a href="${pageContext.request.contextPath}/user/cart">Cart</a></li>
-                    <li><a href="${pageContext.request.contextPath}/user/checkout">Checkout</a></li>
+<%--                    <li><a href="${pageContext.request.contextPath}/user/checkout">Checkout</a></li>--%>
                     <!-- <li><a href="#">Category</a></li>
                     <li><a href="#">Others</a></li> -->
                     <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
@@ -80,10 +80,10 @@
 
                     <ul class="nav nav-pills nav-stacked">
                         <li>
-                            <a href="customer-orders.html"><i class="fa fa-list"></i> My orders</a>
+                            <a href="${pageContext.request.contextPath}/user/order"><i class="fa fa-list"></i> My orders</a>
                         </li>
                         <li class="active">
-                            <a href="customer-account.html"><i class="fa fa-user"></i> My account</a>
+                            <a href="${pageContext.request.contextPath}/user/account"><i class="fa fa-user"></i> My account</a>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out"></i>

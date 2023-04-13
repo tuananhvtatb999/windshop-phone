@@ -1,6 +1,5 @@
 package com.windshop.phone.entity;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,10 +11,10 @@ import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "tbl_products")
+@Table(name = "tbl_product")
 @Getter
 @Setter
-public class Product extends BaseEntity{
+public class Product extends BaseEntity {
 
     @Column(name = "title", length = 500, nullable = false)
     private String title;
@@ -56,21 +55,21 @@ public class Product extends BaseEntity{
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", fetch = FetchType.EAGER, orphanRemoval = true)
-    private List<ProductImages> productImages = new ArrayList<ProductImages>();
+    private List<ProductImage> productImages = new ArrayList<>();
 
-    public void addProductImages(ProductImages _productImages) {
+    public void addProductImages(ProductImage _productImages) {
         _productImages.setProduct(this);
         productImages.add(_productImages);
     }
 
-    public void removeProductImages(ProductImages _productImages) {
+    public void removeProductImages(ProductImage _productImages) {
         _productImages.setProduct(null);
         productImages.remove(_productImages);
     }
 
     public void removeProductImages() {
-        for (ProductImages productImages : productImages) {
-            removeProductImages(productImages);
+        for (ProductImage productImage : productImages) {
+            removeProductImages(productImage);
         }
     }
 }

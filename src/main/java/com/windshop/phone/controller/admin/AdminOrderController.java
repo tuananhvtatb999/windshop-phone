@@ -2,17 +2,20 @@ package com.windshop.phone.controller.admin;
 
 
 import com.windshop.phone.controller.BaseController;
-import com.windshop.phone.entity.Category;
 import com.windshop.phone.entity.SaleOrder;
+import com.windshop.phone.model.AjaxResponse;
 import com.windshop.phone.repository.SaleOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
@@ -29,8 +32,8 @@ public class AdminOrderController extends BaseController {
     @GetMapping("/admin/list-orders")
     public String order(final HttpServletRequest request, final ModelMap model,
                         @PathParam("page") Integer page) {
-        int pageP = !ObjectUtils.isEmpty(page)? page : 1;
-        Pageable pageable = PageRequest.of(pageP-1, 10);
+        int pageP = !ObjectUtils.isEmpty(page) ? page : 1;
+        Pageable pageable = PageRequest.of(pageP - 1, 10);
         Page<SaleOrder> orderPage = saleOrderRepository.findAll(pageable);
         model.addAttribute("orders", orderPage.getContent());
         model.addAttribute("currentPage", pageP);
@@ -49,7 +52,7 @@ public class AdminOrderController extends BaseController {
         return "admin/donhang";
     }
 
-//    @GetMapping("/admin/list-orders/{id}")
+    //    @GetMapping("/admin/list-orders/{id}")
 //    public String order(@PathVariable Integer id, final HttpServletRequest request) {
 //        SaleOrder sale = saleOrderRepo.getOne(id);
 //        // sale.setStatus(Integer.parseInt(request.getParameter("gridRadios")));
@@ -57,12 +60,13 @@ public class AdminOrderController extends BaseController {
 //        return "back-end/donhang";
 //    }
 //
-//    @RequestMapping(value = { "/delete-order" }, method = RequestMethod.POST)
-//    public ResponseEntity<AjaxResponse> deletesaleOrder(final ModelMap model, final HttpServletRequest request,
-//                                                        final HttpServletResponse response, @RequestBody Integer id) {
-//        saleOrderRepo.deleteById(id);
-//        return ResponseEntity.ok(new AjaxResponse(200, "Xóa thành công!"));
-//    }
+    @PostMapping("/delete-order")
+    public ResponseEntity<AjaxResponse> deletesaleOrder(@RequestBody Integer id) {
+        SaleOrder saleOrder = saleOrderRepository.findById(id).orElse(null);
+        saleOrder.setStatus(0);
+        saleOrderRepository.saveAndFlush(saleOrder);
+        return ResponseEntity.ok(new AjaxResponse(200, "Xóa thành công!"));
+    }
 //
 //    @PostMapping(value = { "/update-status" })
 //    public ResponseEntity<AjaxResponse> updateStatus(@RequestBody String data) {

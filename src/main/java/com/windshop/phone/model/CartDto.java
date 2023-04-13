@@ -21,8 +21,7 @@ public class CartDto {
     public BigDecimal getTotal(ProductRepository productRepo) {
         BigDecimal decimal = BigDecimal.ZERO;
         for (ProductInCart phamTrongGioHang : ProductInCarts) {
-            Product product = productRepo.getOne(phamTrongGioHang.getMaSanPham());
-            decimal = decimal.add(product.getPrice());
+            decimal = decimal.add((BigDecimal.valueOf(phamTrongGioHang.getSoluong()).multiply(phamTrongGioHang.getGiaban())));
         }
         return decimal;
     }

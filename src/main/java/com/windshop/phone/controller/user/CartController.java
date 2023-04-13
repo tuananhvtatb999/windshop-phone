@@ -1,9 +1,11 @@
 package com.windshop.phone.controller.user;
 
 import com.windshop.phone.entity.*;
+import com.windshop.phone.enums.StatusOrder;
 import com.windshop.phone.model.AjaxResponse;
 import com.windshop.phone.model.CartDto;
 import com.windshop.phone.model.ProductInCart;
+import com.windshop.phone.repository.ProductCartRepository;
 import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.repository.SaleOrderRepository;
 import com.windshop.phone.service.impl.CartServiceImpl;
@@ -38,6 +40,9 @@ public class CartController {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private ProductCartRepository productCartRepository;
 
     @PostMapping(value = "/user/add-to-cart")
     public ResponseEntity<AjaxResponse> muaHang(@RequestBody ProductInCart productInCart, final HttpServletRequest request) {
@@ -149,19 +154,18 @@ public class CartController {
         SaleOrder saleOrder = new SaleOrder();
         saleOrder.setCode(String.valueOf(System.currentTimeMillis()));
         saleOrder.setCreatedDate(LocalDateTime.now());
-        saleOrder.setCustomerName(user.getUsername());
-        saleOrder.setCustomerAddress(user.getAddress());
-        saleOrder.setCustomerPhone(user.getPhoneNumber());
-        saleOrder.setCustomerEmail(user.getEmail());
+        saleOrder.setUser(user);
+        saleOrder.setStatusOrder(0);
+        saleOrder.setStatusOrderName(StatusOrder.BEING_PREPARE.toString());
         saleOrder.setTotal(gioHang.getTotal(productRepository));
 
         for (ProductInCart sanPhamTrongGioHang : gioHang.getProductInCarts()) {
-            SaleOrderProducts saleOrderProducts = new SaleOrderProducts();
-            saleOrderProducts.setProduct(productRepository.getOne(sanPhamTrongGioHang.getMaSanPham()));
-            saleOrderProducts.setQuality(sanPhamTrongGioHang.getSoluong());
-            saleOrderProducts.setPrice(sanPhamTrongGioHang.getGiaban());
-            saleOrderProducts.setCreatedDate(LocalDateTime.now());
-            saleOrder.addSaleOrderProducts(saleOrderProducts);
+            SaleOrderProduct saleOrderProduct = new SaleOrderProduct();
+            saleOrderProduct.setProduct(productRepository.getOne(sanPhamTrongGioHang.getMaSanPham()));
+            saleOrderProduct.setQuality(sanPhamTrongGioHang.getSoluong());
+            saleOrderProduct.setPrice(sanPhamTrongGioHang.getGiaban());
+            saleOrderProduct.setCreatedDate(LocalDateTime.now());
+            saleOrder.addSaleOrderProducts(saleOrderProduct);
         }
 
         saleOrderRepository.save(saleOrder);
@@ -169,6 +173,19 @@ public class CartController {
         Cart cart = cartService.findByUserEmail(user.getEmail(), 1);
         if (cart != null) {
             cartService.delete(cart);
+        } else {
+            cart = new Cart();
+            cart.setEmailUser(userLogged.getEmail());
+            cart.setCreatedDate(LocalDateTime.now());
+            cart.setStatus(0);
+            cartService.save(cart);
+            for (ProductInCart sanPhamTrongGioHang : gioHang.getProductInCarts()) {
+                ProductCart productCart = new ProductCart();
+                productCart.setCart(cart);
+                productCart.setProduct(productRepository.getOne(sanPhamTrongGioHang.getMaSanPham()));
+                productCart.setQuantity(sanPhamTrongGioHang.getSoluong());
+                productCartRepository.save(productCart);
+            }
         }
 
         httpSession.removeAttribute("GIO_HANG");

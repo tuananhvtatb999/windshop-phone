@@ -79,6 +79,7 @@
                                             <th>Ngày tạo</th>
                                             <th>Ngày sửa gần nhất</th>
                                             <th>Tổng tiền</th>
+                                            <th>Trạng thái đơn hàng</th>
                                             <th>Trạng thái</th>
                                             <th>Xem/ Xóa</th>
 
@@ -102,29 +103,43 @@
                                                                 pattern='dd-MM-yyyy'/>
                                                 <td>${startFormat}</td>
                                                 <td><span>${order.total}</span></td>
-                                                <td><c:if test="${order.status == 1 }">
+                                                <td><c:if test="${order.statusOrder == 0 }">
 																<span
                                                                         class="badge badge-pill badge-soft-danger font-size-12"><c:out
-                                                                        value="Chưa xử lí"/></span>
-                                                </c:if> <c:if test="${order.status == 2 }">
+                                                                        value="Đang chuẩn bị"/></span>
+                                                </c:if> <c:if test="${order.statusOrder == 1 }">
 																<span
-                                                                        class="badge badge-pill badge-soft-primary font-size-12"><c:out
+                                                                        class="badge badge-pill badge-soft-warning font-size-12"><c:out
                                                                         value="Đang giao"/></span>
-                                                </c:if> <c:if test="${order.status == 3 }">
+                                                </c:if> <c:if test="${order.statusOrder == 2 }">
 																<span
                                                                         class="badge badge-pill badge-soft-success font-size-12"><c:out
                                                                         value="Đã hoàn thành"/></span>
+                                                </c:if>
+                                                    <c:if test="${order.statusOrder == 3 }">
+																<span
+                                                                        class="badge badge-pill badge-soft-danger font-size-12"><c:out
+                                                                        value="Đã huỷ"/></span>
+                                                    </c:if>
+                                                </td>
+                                                <td id="status-delete-${order.id}"><c:if test="${order.status == 0 }">
+																<span
+                                                                        class="badge badge-pill badge-soft-danger font-size-12"><c:out
+                                                                        value="Đơn hàng đã bị xoá"/></span>
+                                                </c:if> <c:if test="${order.status == 1 }">
+																<span
+                                                                        class="badge badge-pill badge-soft-primary font-size-12"><c:out
+                                                                        value="Đơn hàng  chưa bị xoá"/></span>
                                                 </c:if></td>
                                                 <td><a class="text-black btn" data-toggle="modal"
                                                        data-placement="top" title="" data-original-title="Xem"
-                                                       data-id="${order.id }"
-                                                       data-target=".bd-example-modal-lg"><i
+                                                       data-target="#exampleModal-${order.id }"><i
                                                         class="mdi mdi-pencil font-size-18"></i></a>
 
 
                                                     <div class="modal fade bd-example-modal-lg" tabindex="-1"
                                                          role="dialog" aria-labelledby="myLargeModalLabel"
-                                                         id="${order.id }"
+                                                         id="exampleModal-${order.id}"
                                                          aria-hidden="true">
                                                         <div class="modal-dialog modal-lg">
                                                             <div class="modal-content">
@@ -133,12 +148,12 @@
                                                                         <label for="name">Tên khách hàng:</label> <input
                                                                             type="text" class="form-control"
                                                                             name="name" id="name"
-                                                                            value="${order.customerName }">
+                                                                            value="${order.user.firstName} ${order.user.lastName}" readonly>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label for="email">Địa chỉ email:</label> <input
                                                                             type="email" class="form-control" id="email"
-                                                                            name="email" value="${order.customerEmail }"
+                                                                            name="email" value="${order.user.email }"
                                                                             readonly>
                                                                     </div>
                                                                     <div class="form-group">
@@ -147,7 +162,7 @@
                                                                                 type="text" class="form-control"
                                                                                 id="phone"
                                                                                 name="phone"
-                                                                                value="${order.customerPhone }"
+                                                                                value="${order.user.phoneNumber }"
                                                                                 readonly>
                                                                     </div>
                                                                     <div class="form-group">
@@ -156,7 +171,7 @@
                                                                                 type="text" class="form-control"
                                                                                 id="address"
                                                                                 name="address"
-                                                                                value="${order.customerAddress }"
+                                                                                value="${order.user.address }"
                                                                                 readonly>
                                                                     </div>
 
@@ -167,23 +182,108 @@
                                                                                 thái đơn hàng
                                                                             </legend>
                                                                             <div class="col-sm-9">
-                                                                                <c:if test="${order.status ==1 }">
+                                                                                <c:if test="${order.statusOrder == 0 }">
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
                                                                                                name="gridRadios"
                                                                                                id="gridRadios1"
+                                                                                               value="0" checked> <label
+                                                                                            class="form-check-label"
+                                                                                            for="gridRadios1">
+                                                                                        Đang chuẩn bị</label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <input class="form-check-input"
+                                                                                               type="radio"
+                                                                                               name="gridRadios"
+                                                                                               id="gridRadios2"
+                                                                                               value="1"> <label
+                                                                                            class="form-check-label"
+                                                                                            for="gridRadios2">
+                                                                                        Đang giao</label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <input class="form-check-input"
+                                                                                               type="radio"
+                                                                                               name="gridRadios"
+                                                                                               id="gridRadios3"
+                                                                                               value="2"> <label
+                                                                                            class="form-check-label"
+                                                                                            for="gridRadios3">
+                                                                                        Đã hoàn thành</label></div>
+                                                                                        <div class="form-check">
+                                                                                            <input class="form-check-input"
+                                                                                                   type="radio"
+                                                                                                   name="gridRadios"
+                                                                                                   id="gridRadios4"
+                                                                                                   value="3"> <label
+                                                                                                class="form-check-label"
+                                                                                                for="gridRadios3">
+                                                                                            Đã huỷ</label>
+                                                                                    </div>
+                                                                                </c:if>
+
+                                                                                <c:if test="${order.statusOrder == 1 }">
+                                                                                    <div class="form-check">
+                                                                                        <input class="form-check-input"
+                                                                                               type="radio"
+                                                                                               name="gridRadios"
+                                                                                               id="gridRadios1"
+                                                                                               value="0"> <label
+                                                                                            class="form-check-label"
+                                                                                            for="gridRadios1">
+                                                                                        Đang chuẩn bị</label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <input class="form-check-input"
+                                                                                               type="radio"
+                                                                                               name="gridRadios"
+                                                                                               id="gridRadios2"
                                                                                                value="1" checked> <label
                                                                                             class="form-check-label"
+                                                                                            for="gridRadios2">
+                                                                                        Đang giao</label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <input class="form-check-input"
+                                                                                               type="radio"
+                                                                                               name="gridRadios"
+                                                                                               id="gridRadios3"
+                                                                                               value="2"> <label
+                                                                                            class="form-check-label"
+                                                                                            for="gridRadios3">
+                                                                                        Đã hoàn thành</label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <input class="form-check-input"
+                                                                                               type="radio"
+                                                                                               name="gridRadios"
+                                                                                               id="gridRadios4"
+                                                                                               value="3"> <label
+                                                                                            class="form-check-label"
+                                                                                            for="gridRadios4">
+                                                                                        Đã huỷ</label>
+                                                                                    </div>
+                                                                                </c:if>
+
+                                                                                <c:if test="${order.statusOrder == 2 }">
+                                                                                    <div class="form-check">
+                                                                                        <input class="form-check-input"
+                                                                                               type="radio"
+                                                                                               name="gridRadios"
+                                                                                               id="gridRadios1"
+                                                                                               value="0"> <label
+                                                                                            class="form-check-label"
                                                                                             for="gridRadios1">
-                                                                                        Chưa xử lí</label>
+                                                                                        Đang chuẩn bị</label>
                                                                                     </div>
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
                                                                                                name="gridRadios"
                                                                                                id="gridRadios2"
-                                                                                               value="2"> <label
+                                                                                               value="1"> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios2">
                                                                                         Đang giao</label>
@@ -193,78 +293,64 @@
                                                                                                type="radio"
                                                                                                name="gridRadios"
                                                                                                id="gridRadios3"
-                                                                                               value="3"> <label
-                                                                                            class="form-check-label"
-                                                                                            for="gridRadios3">
-                                                                                        Đã hoàn thành</label>
-                                                                                    </div>
-                                                                                </c:if>
-
-                                                                                <c:if test="${order.status == 2 }">
-                                                                                    <div class="form-check">
-                                                                                        <input class="form-check-input"
-                                                                                               type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios1"
-                                                                                               value="1"> <label
-                                                                                            class="form-check-label"
-                                                                                            for="gridRadios1">
-                                                                                        Chưa xử lí</label>
-                                                                                    </div>
-                                                                                    <div class="form-check">
-                                                                                        <input class="form-check-input"
-                                                                                               type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios2"
                                                                                                value="2" checked> <label
                                                                                             class="form-check-label"
-                                                                                            for="gridRadios2">
-                                                                                        Đang giao</label>
-                                                                                    </div>
-                                                                                    <div class="form-check">
-                                                                                        <input class="form-check-input"
-                                                                                               type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios3"
-                                                                                               value="3"> <label
-                                                                                            class="form-check-label"
                                                                                             for="gridRadios3">
                                                                                         Đã hoàn thành</label>
                                                                                     </div>
-                                                                                </c:if>
-
-                                                                                <c:if test="${order.status == 3 }">
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
                                                                                                name="gridRadios"
-                                                                                               id="gridRadios1"
-                                                                                               value="1"> <label
+                                                                                               id="gridRadios4"
+                                                                                               value="3" > <label
                                                                                             class="form-check-label"
-                                                                                            for="gridRadios1">
-                                                                                        Chưa xử lí</label>
-                                                                                    </div>
-                                                                                    <div class="form-check">
-                                                                                        <input class="form-check-input"
-                                                                                               type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios2"
-                                                                                               value="2"> <label
-                                                                                            class="form-check-label"
-                                                                                            for="gridRadios2">
-                                                                                        Đang giao</label>
-                                                                                    </div>
-                                                                                    <div class="form-check">
-                                                                                        <input class="form-check-input"
-                                                                                               type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios3"
-                                                                                               value="3" checked> <label
-                                                                                            class="form-check-label"
-                                                                                            for="gridRadios3">
-                                                                                        Đã hoàn thành</label>
+                                                                                            for="gridRadios4">
+                                                                                        Đã huỷ</label>
                                                                                     </div>
                                                                                 </c:if>
+                                                                                        <c:if test="${order.statusOrder == 3 }">
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input"
+                                                                                                       type="radio"
+                                                                                                       name="gridRadios"
+                                                                                                       id="gridRadios1"
+                                                                                                       value="0"> <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="gridRadios1">
+                                                                                                Đang chuẩn bị</label>
+                                                                                            </div>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input"
+                                                                                                       type="radio"
+                                                                                                       name="gridRadios"
+                                                                                                       id="gridRadios2"
+                                                                                                       value="1"> <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="gridRadios2">
+                                                                                                Đang giao</label>
+                                                                                            </div>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input"
+                                                                                                       type="radio"
+                                                                                                       name="gridRadios"
+                                                                                                       id="gridRadios3"
+                                                                                                       value="2" > <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="gridRadios3">
+                                                                                                Đã hoàn thành</label>
+                                                                                            </div>
+                                                                                            <div class="form-check">
+                                                                                                <input class="form-check-input"
+                                                                                                       type="radio"
+                                                                                                       name="gridRadios"
+                                                                                                       id="gridRadios4"
+                                                                                                       value="3" checked> <label
+                                                                                                    class="form-check-label"
+                                                                                                    for="gridRadios4">
+                                                                                                Đã huỷ</label>
+                                                                                            </div>
+                                                                                        </c:if>
                                                                             </div>
                                                                         </div>
                                                                     </fieldset>
@@ -331,10 +417,10 @@
                                                     </div>
                                                     <a class="text-danger" data-toggle="modal"
                                                        data-placement="top" title="" data-original-title="Xóa"
-                                                       data-target="#exampleModal"><i
+                                                       data-target="#modalDelete-${order.id}"><i
                                                             class="mdi mdi-close font-size-18"></i></a>
 
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                    <div class="modal fade" id="modalDelete-${order.id}" tabindex="-1"
                                                          role="dialog" aria-labelledby="exampleModalLabel"
                                                          aria-hidden="true">
                                                         <div class="modal-dialog" role="document">

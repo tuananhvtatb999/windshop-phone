@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Table(name = "tbl_saleorder_products")
 @Getter
 @Setter
-public class SaleOrderProducts extends BaseEntity {
+public class SaleOrderProduct extends BaseEntity {
 	
 	@ManyToOne(fetch = FetchType.EAGER )
 	@JoinColumn(name = "product_id")

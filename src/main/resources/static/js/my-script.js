@@ -172,7 +172,7 @@ var Product = {
             success: function (jsonResult) { // được gọi khi web-service trả về dữ liệu.
                 if (jsonResult.status == 200) {
                     location.reload();
-                    alert(jsonResult.data);
+                    showNotification('top', 'right', 'Delete success!', 2)
                 } else {
                     alert('loi');
                 }
