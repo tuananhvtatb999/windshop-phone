@@ -137,7 +137,85 @@
                                     <td><span class="label label-danger">Cancelled</span></td>
                                 </c:if>
 
-                                <td><a href="customer-order.html" class="btn btn-primary btn-sm">View</a>
+                                <td><a data-toggle="modal"
+                                       data-placement="top" title="View"
+                                       data-target="#exampleModal-${order.id }" class="btn btn-primary btn-sm">View</a>
+
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1"
+                                         role="dialog" aria-labelledby="myLargeModalLabel"
+                                         id="exampleModal-${order.id}"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <form class="p-5" style="padding:50px">
+                                                    <div class="form-group">
+                                                        <label >Địa chỉ giao hàng:</label>
+                                                        <p>${order.user.address }</p>
+                                                    </div>
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <h3>Sản phẩm</h3>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Tên sản phẩm</th>
+                                                            <th scope="col">Hình ảnh</th>
+                                                            <th scope="col">Số lượng</th>
+                                                            <th scope="col">Đơn giá</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <c:forEach items="${order.saleOrderProducts }"
+                                                                   var="item" varStatus="loop">
+
+                                                            <tr>
+                                                                <th scope="row">${loop.index + 1}</th>
+                                                                <td>${item.product.title }</td>
+                                                                <td><c:forEach var="productImages"
+                                                                               end="0"
+                                                                               items="${item.product.productImages}">
+                                                                    <img
+                                                                            src="../file/upload/${productImages.title}"
+                                                                            width="200px"
+                                                                            height="180px">
+                                                                </c:forEach></td>
+                                                                <td>${item.quality }</td>
+                                                                <td><c:if
+                                                                        test="${item.product.priceSale != null }">
+                                                                    <fmt:formatNumber type="number"
+                                                                                      maxIntegerDigits="13"
+                                                                                      value="${item.price}"/>
+                                                                    đ
+                                                                </c:if> <c:if
+                                                                        test="${item.product.priceSale == null }">
+                                                                    <fmt:formatNumber type="number"
+                                                                                      maxIntegerDigits="13"
+                                                                                      value="${item.price}"/>
+                                                                    đ
+                                                                </c:if></td>
+                                                            </tr>
+
+                                                        </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                    <label class="total text-danger float-right">Tổng
+                                                        tiền : ${order.total }</label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="form-group row clearfix">
+                                                        <div class="col-sm-10">
+                                                            <c:if test="${order.statusOrder == 0 || order.statusOrder == 1}">
+                                                                <button type="button" onclick="Order.cancelOrder(${order.id})"
+                                                                        class="btn btn-danger">Huỷ đơn hàng
+                                                                </button>
+                                                            </c:if>
+
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             </c:forEach>

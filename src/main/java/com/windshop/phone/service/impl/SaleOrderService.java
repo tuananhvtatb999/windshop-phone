@@ -24,4 +24,12 @@ public class SaleOrderService {
         User userDb = userService.findByEmail(user.getEmail());
         return saleOrderRepository.findAllByUserIdAndStatusOrderByCreatedDateDesc(userDb.getId(), 1, pageable);
     }
+
+    public SaleOrder findById(Integer id) {
+        return saleOrderRepository.findById(id).orElse(null);
+    }
+
+    public void updateSaleOrder(SaleOrder saleOrder) {
+        saleOrderRepository.save(saleOrder);
+    }
 }

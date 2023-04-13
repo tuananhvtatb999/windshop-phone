@@ -1,6 +1,5 @@
 package com.windshop.phone.controller.admin;
 
-import com.windshop.phone.entity.Brand;
 import com.windshop.phone.entity.Category;
 import com.windshop.phone.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,8 @@ public class AdminCategoryController {
 
     @GetMapping(value = "/category")
     public String get(final ModelMap model, @PathParam("page") Integer page) {
-        int pageP = !ObjectUtils.isEmpty(page)? page : 1;
-        Pageable pageable = PageRequest.of(pageP-1, 5);
+        int pageP = !ObjectUtils.isEmpty(page) ? page : 1;
+        Pageable pageable = PageRequest.of(pageP - 1, 5);
         Page<Category> categoryPage = categoryRepository.findAllByStatus(1, pageable);
         model.addAttribute("category", categoryPage.getContent());
         model.addAttribute("currentPage", pageP);

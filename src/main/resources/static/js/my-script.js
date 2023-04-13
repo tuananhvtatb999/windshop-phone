@@ -163,7 +163,7 @@ var Product = {
     deleteOrder: function (idP) {
         var id = idP;
         $.ajax({
-            url: "/delete-order",
+            url: "/admin/delete-order",
             type: "post",
             contentType: "application/json", // dữ liệu gửi lên web-service có dạng là json.
             data: JSON.stringify(id), // object json -> string json
@@ -279,22 +279,6 @@ var Account = {
     },
 
     changeInformation: function () {
-        // let firstName = $('#firstname').val();
-        // let lastName = $('#lastname').val();
-        // let address = $('#address').val();
-        // let telephone = $('#phone').val();
-        // let email = $('#email').val();
-        //
-        // if ($('#image').files && $('#image').files[0]) {
-        //     let image = $('#image').files[0];
-        // } else {
-        //     let image = null;
-        // }
-
-        // if (!firstName || !lastName || !address || !telephone || !email) {
-        //     showNotification('top', 'right', 'Fill fully!', 1);
-        //     return;
-        // }
         if (!isEmail($('#email').val())) {
             showNotification('top', 'right', 'Email invalid!', 4);
             return;
@@ -303,12 +287,6 @@ var Account = {
             showNotification('top', 'right', 'Phone number invalid!', 4);
             return;
         }
-
-        // var data = {};
-        // data["oldPass"] = oldPass;
-        // data["newPass"] = newPass;
-
-        // Get form
 
         var data = new FormData();
         data.append("firstName", $('#firstName').val());
@@ -333,14 +311,53 @@ var Account = {
                 if (jsonResult.status === 200 && jsonResult.data === "Success") {
                     showNotification('top', 'right', 'Change information success', 2);
                 }
-                // $('#password_old').val('');
-                // $('#password_1').val('');
-                // $('#password_2').val('');
             },
             error: function (jqXhr, textStatus, errorMessage) {
             }
         });
     }
+}
+
+var Order = {
+    cancelOrder : function(id) {
+        $.ajax({
+            url: "/user/cancel-order",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(id),
+            dataType: "json",
+            success: function (jsonResult) {
+                if (jsonResult.status === 200 && jsonResult.data === "Success") {
+                    console.log('a')
+                    window.location.reload();
+                }
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+            }
+        });
+    },
+
+    updateStatus : function(id) {
+        var data = {};
+        data['id'] = id;
+        data['status'] = $('input[name="gridRadios"]:checked').val();
+
+        $.ajax({
+            url: "/admin/update-status-order",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: "json",
+            success: function (jsonResult) {
+                if (jsonResult.status === 200 && jsonResult.data === "Success") {
+                    window.location.reload();
+                }
+            },
+            error: function (jqXhr, textStatus, errorMessage) {
+            }
+        });
+    }
+
 }
 
 function isEmail(email) {

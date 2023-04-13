@@ -3,8 +3,10 @@ package com.windshop.phone.controller.admin;
 
 import com.windshop.phone.controller.BaseController;
 import com.windshop.phone.entity.SaleOrder;
+import com.windshop.phone.enums.StatusOrder;
 import com.windshop.phone.model.AjaxResponse;
 import com.windshop.phone.repository.SaleOrderRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,20 +18,23 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Controller
+@RequestMapping("/admin")
 public class AdminOrderController extends BaseController {
 
     @Autowired
     SaleOrderRepository saleOrderRepository;
 
-    @GetMapping("/admin/list-orders")
+    @GetMapping("/list-orders")
     public String order(final HttpServletRequest request, final ModelMap model,
                         @PathParam("page") Integer page) {
         int pageP = !ObjectUtils.isEmpty(page) ? page : 1;
@@ -52,14 +57,6 @@ public class AdminOrderController extends BaseController {
         return "admin/donhang";
     }
 
-    //    @GetMapping("/admin/list-orders/{id}")
-//    public String order(@PathVariable Integer id, final HttpServletRequest request) {
-//        SaleOrder sale = saleOrderRepo.getOne(id);
-//        // sale.setStatus(Integer.parseInt(request.getParameter("gridRadios")));
-//        saleOrderRepo.save(sale);
-//        return "back-end/donhang";
-//    }
-//
     @PostMapping("/delete-order")
     public ResponseEntity<AjaxResponse> deletesaleOrder(@RequestBody Integer id) {
         SaleOrder saleOrder = saleOrderRepository.findById(id).orElse(null);
@@ -67,14 +64,15 @@ public class AdminOrderController extends BaseController {
         saleOrderRepository.saveAndFlush(saleOrder);
         return ResponseEntity.ok(new AjaxResponse(200, "Xóa thành công!"));
     }
-//
-//    @PostMapping(value = { "/update-status" })
-//    public ResponseEntity<AjaxResponse> updateStatus(@RequestBody String data) {
-//        JSONObject json = new JSONObject(data);
-//        SaleOrder order = saleOrderRepo.getOne(json.getInt("id"));
-//        order.setStatus(json.getInt("status"));
-//        order.setUpdatedDate(LocalDate.now());
-//        saleOrderRepo.save(order);
-//        return ResponseEntity.ok(new AjaxResponse(200,"Success"));
-//    }
+
+    @PostMapping("/update-status-order")
+    public ResponseEntity<AjaxResponse> updateStatus(@RequestBody String data) {
+        JSONObject json = new JSONObject(data);
+        SaleOrder order = saleOrderRepository.getOne(json.getInt("id"));
+        order.setStatusOrder(json.getInt("status"));
+        order.setStatusOrderName(StatusOrder.findByCode(json.getInt("status")).toString());
+        order.setUpdatedDate(LocalDateTime.now());
+        saleOrderRepository.save(order);
+        return ResponseEntity.ok(new AjaxResponse(200,"Success"));
+    }
 }

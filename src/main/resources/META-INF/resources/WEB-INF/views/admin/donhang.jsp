@@ -379,8 +379,8 @@
                                                                                                items="${item.product.productImages}">
                                                                                     <img
                                                                                             src="../file/upload/${productImages.title}"
-                                                                                            width="100px"
-                                                                                            height="200px">
+                                                                                            width="200px"
+                                                                                            height="180px">
                                                                                 </c:forEach></td>
                                                                                 <td>${item.quality }</td>
                                                                                 <td><c:if
