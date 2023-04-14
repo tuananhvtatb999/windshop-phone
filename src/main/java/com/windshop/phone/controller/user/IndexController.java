@@ -1,5 +1,6 @@
 package com.windshop.phone.controller.user;
 
+import com.windshop.phone.controller.BaseController;
 import com.windshop.phone.entity.Product;
 import com.windshop.phone.entity.User;
 import com.windshop.phone.service.IUserService;
@@ -22,11 +23,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
 @Controller
-public class IndexController {
+public class IndexController extends BaseController {
 
     @Autowired
     private IUserService IUserService;
@@ -43,11 +43,22 @@ public class IndexController {
     }
 
     @GetMapping(value = "/shop")
-    public String shopPage(final HttpServletRequest request, final ModelMap model,
-                           @PathParam("page") Integer page) {
-        int pageP = !ObjectUtils.isEmpty(page)? page : 1;
-        Pageable pageable = PageRequest.of(pageP-1, 12);
+    public String shopPage(final ModelMap model,
+                           @PathParam("page") Integer page,
+                           @PathParam("brandId") Integer brandId,
+                           @PathParam("categoryId") Integer categoryId) {
+        int pageP = !ObjectUtils.isEmpty(page) ? page : 1;
+        Pageable pageable = PageRequest.of(pageP - 1, 12);
         Page<Product> productList = productService.pageProduct(pageable);
+
+        if (brandId != null) {
+            productList = productService.pageProductByBrand(brandId, pageable);
+        }
+
+        if (categoryId != null) {
+            productList = productService.pageProductByCategory(categoryId, pageable);
+        }
+
         model.addAttribute("products", productList.getContent());
         model.addAttribute("currentPage", pageP);
         model.addAttribute("total", productList.getTotalPages());
@@ -70,7 +81,7 @@ public class IndexController {
     @GetMapping(value = "/sign-in")
     public String login(Model model, String error, String logout) {
         String message = (String) model.getAttribute("message");
-        if (!ObjectUtils.isEmpty(message)){
+        if (!ObjectUtils.isEmpty(message)) {
             model.addAttribute("message", message);
         } else {
             model.addAttribute("message", "");
@@ -93,6 +104,7 @@ public class IndexController {
         model.addAttribute("userForm", new User());
         return "user/sign-up";
     }
+
     @PostMapping("/sign-up")
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {

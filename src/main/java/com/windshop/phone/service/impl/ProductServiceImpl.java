@@ -82,6 +82,14 @@ public class ProductServiceImpl implements IProductService {
         return productRepository.findAll(pageable);
     }
 
+    public Page<Product> pageProductByBrand(Integer brandId, Pageable pageable) {
+        return productRepository.findAllByBrandId(brandId, pageable);
+    }
+
+    public Page<Product> pageProductByCategory(Integer categoryId, Pageable pageable) {
+        return productRepository.findAllByCategoryId(categoryId, pageable);
+    }
+
     @Override
     public Optional<Product> findById(Integer id) {
         return productRepository.findById(id);

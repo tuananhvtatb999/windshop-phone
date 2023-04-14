@@ -1,5 +1,6 @@
 package com.windshop.phone.controller.user;
 
+import com.windshop.phone.controller.BaseController;
 import com.windshop.phone.entity.*;
 import com.windshop.phone.enums.StatusOrder;
 import com.windshop.phone.model.AjaxResponse;
@@ -27,7 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Controller
-public class CartController {
+public class CartController extends BaseController {
 
     @Autowired
     private ProductRepository productRepository;

@@ -1,5 +1,6 @@
 package com.windshop.phone.controller.user;
 
+import com.windshop.phone.controller.BaseController;
 import com.windshop.phone.entity.User;
 import com.windshop.phone.model.AjaxResponse;
 import com.windshop.phone.model.UserDto;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("user")
-public class AccountController {
+public class AccountController extends BaseController {
 
     @Autowired
     private UserServiceImpl userService;
