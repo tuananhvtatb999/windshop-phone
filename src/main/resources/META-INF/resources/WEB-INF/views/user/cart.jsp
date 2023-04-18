@@ -77,6 +77,7 @@
                                 <c:set var="total" value="${0}" />
                                 <c:forEach items="${GIO_HANG.productInCarts }" var="item"
                                            varStatus="loop">
+                                    <input type="hidden" id="id-item" value="${item.maSanPham}"/>
 
                                     <tr class="cart_item">
                                         <td class="product-remove">
@@ -98,7 +99,7 @@
                                                 <input type="button" id="minus" class="minus" value="-" onclick="Cart.updateQuantity(${item.maSanPham }, ${item.giaban }, -1, ${total }, 'minus');">
                                                 <input style="width: 50px" type="number" onkeypress="return runScript(event, ${item.maSanPham })" id="${item.maSanPham }"
                                                        value="${item.soluong }"
-                                                       onchange="Cart.updateGioHang(${item.maSanPham }, ${item.giaban }, this.value, ${total });">
+                                                       onkeyup="Cart.updateGioHang(${item.maSanPham }, ${item.giaban }, this, ${total });">
                                                 <input type="button" class="plus" value="+" onclick="Cart.updateQuantity(${item.maSanPham }, ${item.giaban }, 1, ${total });">
                                             </div>
                                         </td>

@@ -5,7 +5,9 @@ import com.windshop.phone.entity.Product;
 import com.windshop.phone.entity.User;
 import com.windshop.phone.service.IUserService;
 import com.windshop.phone.service.impl.ProductServiceImpl;
+import com.windshop.phone.service.impl.UserServiceImpl;
 import com.windshop.phone.validator.UserValidator;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,13 +25,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class IndexController extends BaseController {
-
-    @Autowired
-    private IUserService IUserService;
 
     @Autowired
     private UserValidator userValidator;
@@ -37,13 +41,16 @@ public class IndexController extends BaseController {
     @Autowired
     private ProductServiceImpl productService;
 
+    @Autowired
+    private UserServiceImpl userService;
+
     @GetMapping(value = "/home")
     public String index() {
         return "user/home";
     }
 
     @GetMapping(value = "/shop")
-    public String shopPage(final ModelMap model,
+    public String shopPage(final ModelMap model, final HttpServletRequest request,
                            @PathParam("page") Integer page,
                            @PathParam("brandId") Integer brandId,
                            @PathParam("categoryId") Integer categoryId) {
@@ -59,7 +66,23 @@ public class IndexController extends BaseController {
             productList = productService.pageProductByCategory(categoryId, pageable);
         }
 
-        model.addAttribute("products", productList.getContent());
+        String search = request.getParameter("search");
+        String gia = request.getParameter("gia");
+        List<Product> productSearch = new ArrayList<>();
+
+        if (StringUtils.isNotEmpty(search)) {
+            productSearch = productList.getContent().stream().filter(t -> t.getTitle().contains(search)
+                    || t.getBrand().getName().contains(search)
+                    || t.getCategory().getName().contains(search))
+                    .collect(Collectors.toList());
+        }
+
+        if (StringUtils.isNotEmpty(gia)) {
+            productSearch = productService.filter(Integer.parseInt(gia));
+
+        }
+
+        model.addAttribute("products", StringUtils.isNotEmpty(search) || StringUtils.isNotEmpty(gia)? productSearch : productList.getContent());
         model.addAttribute("currentPage", pageP);
         model.addAttribute("total", productList.getTotalPages());
         return "user/shop";
@@ -74,7 +97,10 @@ public class IndexController extends BaseController {
     }
 
     @GetMapping(value = "/user/checkout")
-    public String checkout() {
+    public String checkout(final Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User userDb = userService.findByEmail(user.getEmail());
+        model.addAttribute("address", user.getAddress());
         return "user/checkout";
     }
 
@@ -115,7 +141,7 @@ public class IndexController extends BaseController {
         }
 
         userForm.setRole("USER");
-        IUserService.save(userForm);
+        userService.save(userForm);
         redirectAttributes.addFlashAttribute("message", "success");
 
         return "redirect:/sign-in";

@@ -61,9 +61,18 @@
             <div class="col-md-3">
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">Search Products</h2>
-                    <form action="${pageContext.request.contextPath}/shop?categoryId=${category.id}">
-                        <input type="text" placeholder="Search products...">
-                        <input type="submit" value="Search">
+                    <form action="${pageContext.request.contextPath}/shop" method="get">
+                        <input type="text" placeholder="Search products..." id="search" name="search"/>
+                        <div class="xt-ct-menu">
+                            <select class="xtlab-ctmenu-item" id="gia" name="gia">
+                                <option value="" selected disabled hidden>Khoảng giá</option>
+                                <option value="5">Dưới 5 triệu</option>
+                                <option value="7">Từ 5 triệu - 7 triệu</option>
+                                <option value="12">Từ 7 triệu - 12 triệu</option>
+                                <option value="13">Trên 12 triệu</option>
+                            </select>
+                        </div>
+                        <input type="submit" value="Search"/>
                     </form>
                 </div>
             </div>

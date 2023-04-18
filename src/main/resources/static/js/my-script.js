@@ -52,11 +52,16 @@ var Cart = {
         });
     },
 
-    updateGioHang: function (maSanPham, donGia, soluong, total) {
+    updateGioHang: function (maSanPham, donGia, e, total) {
+        var sl = e.value;
+        if (Number(sl) < 1) {
+            showNotification('top', 'right', 'Please input number more than 0!', 4);
+            return;
+        }
         var data = {};
         data["maSanPham"] = maSanPham;
         data["donGia"] = donGia;
-        data["soluong"] = soluong;
+        data["soluong"] = sl;
 
         $.ajax({
             url: "/update-gio",
@@ -67,8 +72,12 @@ var Cart = {
             dataType: "json", // dữ liệu từ web-service trả về là json.
             success: function (jsonResult) { // được gọi khi web-service trả về dữ liệu.
                 if (jsonResult.status === 200) {
-                    $('#' + maSanPham).html(soluong * donGia);
+                    $('#' + maSanPham).html(Number(sl) * donGia);
                     $('#total').html((Number(jsonResult.data) * donGia + total).toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                    }));
+                    $('#total-item-' + maSanPham).html((Number(jsonResult.data) * Number(donGia)).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
                     }));
@@ -76,12 +85,9 @@ var Cart = {
                         style: 'currency',
                         currency: 'VND'
                     }));
-                    $('#total-item').html((soluong * donGia).toLocaleString('vi-VN', {
-                        style: 'currency',
-                        currency: 'VND'
-                    }));
-                } else {
-                    alert('loi');
+                }
+                if (jsonResult.status === 400) {
+                    showNotification('top', 'right', 'Product has only quantity '+jsonResult.data, 4);
                 }
             },
             error: function (jqXhr, textStatus, errorMessage) { // error callback
@@ -279,6 +285,10 @@ var Account = {
     },
 
     changeInformation: function () {
+        if (!$('#firstName').val() || !$('#lastName').val() || !$('#email').val() || !$('#phoneNumber').val() || !$('#address').val()) {
+            showNotification('top', 'right', 'Fill fully!', 1)
+            return;
+        }
         if (!isEmail($('#email').val())) {
             showNotification('top', 'right', 'Email invalid!', 4);
             return;
@@ -308,6 +318,9 @@ var Account = {
             cache: false,
             timeout: 1000000,
             success: function (jsonResult) {
+                if (jsonResult.status === 200 && jsonResult.data === "email") {
+                    showNotification('top', 'right', 'Please refill email, email exist!', 3);
+                }
                 if (jsonResult.status === 200 && jsonResult.data === "Success") {
                     showNotification('top', 'right', 'Change information success', 2);
                 }

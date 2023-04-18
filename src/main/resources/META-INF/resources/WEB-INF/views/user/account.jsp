@@ -175,7 +175,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="address">Address</label>
-                                        <input type="text" class="form-control" id="address" value="${user.address}"
+                                        <input type="text" class="form-control" id="address" value="${user.address}" required
                                                name="address">
                                     </div>
                                 </div>
