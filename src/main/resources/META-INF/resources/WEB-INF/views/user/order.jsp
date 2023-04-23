@@ -180,7 +180,7 @@
                                                                             width="200px"
                                                                             height="180px">
                                                                 </c:forEach></td>
-                                                                <td>${item.quality }</td>
+                                                                <td>${item.quantity }</td>
                                                                 <td><c:if
                                                                         test="${item.product.priceSale != null }">
                                                                     <fmt:formatNumber type="number"

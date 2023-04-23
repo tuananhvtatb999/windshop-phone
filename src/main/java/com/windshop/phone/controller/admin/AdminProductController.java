@@ -3,8 +3,10 @@ package com.windshop.phone.controller.admin;
 import com.windshop.phone.controller.BaseController;
 import com.windshop.phone.entity.Product;
 import com.windshop.phone.model.AjaxResponse;
+import com.windshop.phone.model.ProductSellerDto;
 import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.service.impl.ProductServiceImpl;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,8 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,6 +36,9 @@ public class AdminProductController extends BaseController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     // ADD Sản phẩm
     @GetMapping(value = {"/add-product"})
@@ -87,6 +94,21 @@ public class AdminProductController extends BaseController {
                     "</div>");
         }
         return "admin/list-products";
+    }
+
+    @GetMapping("/products-seller")
+    public String listProductSeller(final ModelMap model) {
+
+        List<ProductSellerDto> productSellerDtosMonth = productRepository.topSeller().stream()
+                .filter(t -> t.getMonth() == LocalDateTime.now().getMonthValue())
+                .collect(Collectors.toList());
+
+        List<ProductSellerDto> productSellerDtosYear= productRepository.topSellerYear().stream()
+                .filter(t -> t.getYear() == LocalDateTime.now().getYear())
+                .collect(Collectors.toList());
+        model.addAttribute("products", productSellerDtosMonth.size() > 5 ? productSellerDtosMonth.subList(0, 4) : productSellerDtosMonth);
+        model.addAttribute("productsYear", productSellerDtosYear.size() > 5 ? productSellerDtosYear.subList(0, 4) : productSellerDtosYear);
+        return "admin/products-seller";
     }
 
     //UPDATE Sản phẩm

@@ -55,6 +55,9 @@ public class User extends BaseEntity implements UserDetails {
 
     private String rePass;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(role));

@@ -22,7 +22,7 @@ public class SaleOrderService {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User userDb = userService.findByEmail(user.getEmail());
-        return saleOrderRepository.findAllByUserIdAndStatusOrderByCreatedDateDesc(userDb.getId(), 1, pageable);
+        return saleOrderRepository.findAllByUserIdAndStatusOrderByCreatedDateAsc(userDb.getId(), 1, pageable);
     }
 
     public SaleOrder findById(Integer id) {

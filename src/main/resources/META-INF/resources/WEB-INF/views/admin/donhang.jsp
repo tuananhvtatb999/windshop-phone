@@ -186,8 +186,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios1"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="0" checked> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios1">
@@ -196,8 +195,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios2"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="1"> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios2">
@@ -206,8 +204,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios3"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="2"> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios3">
@@ -215,8 +212,7 @@
                                                                                         <div class="form-check">
                                                                                             <input class="form-check-input"
                                                                                                    type="radio"
-                                                                                                   name="gridRadios"
-                                                                                                   id="gridRadios4"
+                                                                                                   name="gridRadios${order.id}"
                                                                                                    value="3"> <label
                                                                                                 class="form-check-label"
                                                                                                 for="gridRadios3">
@@ -228,8 +224,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios1"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="0"> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios1">
@@ -238,8 +233,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios2"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="1" checked> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios2">
@@ -248,8 +242,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios3"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="2"> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios3">
@@ -258,8 +251,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios4"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="3"> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios4">
@@ -271,8 +263,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios1"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="0"> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios1">
@@ -281,8 +272,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios2"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="1"> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios2">
@@ -291,8 +281,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios3"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="2" checked> <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios3">
@@ -301,8 +290,7 @@
                                                                                     <div class="form-check">
                                                                                         <input class="form-check-input"
                                                                                                type="radio"
-                                                                                               name="gridRadios"
-                                                                                               id="gridRadios4"
+                                                                                               name="gridRadios${order.id}"
                                                                                                value="3" > <label
                                                                                             class="form-check-label"
                                                                                             for="gridRadios4">
@@ -313,8 +301,7 @@
                                                                                             <div class="form-check">
                                                                                                 <input class="form-check-input"
                                                                                                        type="radio"
-                                                                                                       name="gridRadios"
-                                                                                                       id="gridRadios1"
+                                                                                                       name="gridRadios${order.id}"
                                                                                                        value="0"> <label
                                                                                                     class="form-check-label"
                                                                                                     for="gridRadios1">
@@ -323,8 +310,7 @@
                                                                                             <div class="form-check">
                                                                                                 <input class="form-check-input"
                                                                                                        type="radio"
-                                                                                                       name="gridRadios"
-                                                                                                       id="gridRadios2"
+                                                                                                       name="gridRadios${order.id}"
                                                                                                        value="1"> <label
                                                                                                     class="form-check-label"
                                                                                                     for="gridRadios2">
@@ -333,8 +319,7 @@
                                                                                             <div class="form-check">
                                                                                                 <input class="form-check-input"
                                                                                                        type="radio"
-                                                                                                       name="gridRadios"
-                                                                                                       id="gridRadios3"
+                                                                                                       name="gridRadios${order.id}"
                                                                                                        value="2" > <label
                                                                                                     class="form-check-label"
                                                                                                     for="gridRadios3">
@@ -343,8 +328,7 @@
                                                                                             <div class="form-check">
                                                                                                 <input class="form-check-input"
                                                                                                        type="radio"
-                                                                                                       name="gridRadios"
-                                                                                                       id="gridRadios4"
+                                                                                                       name="gridRadios${order.id}"
                                                                                                        value="3" checked> <label
                                                                                                     class="form-check-label"
                                                                                                     for="gridRadios4">
@@ -382,7 +366,7 @@
                                                                                             width="200px"
                                                                                             height="180px">
                                                                                 </c:forEach></td>
-                                                                                <td>${item.quality }</td>
+                                                                                <td>${item.quantity }</td>
                                                                                 <td><c:if
                                                                                         test="${item.product.priceSale != null }">
                                                                                     <fmt:formatNumber type="number"
@@ -405,11 +389,13 @@
                                                                         tiền : ${order.total }</label>
                                                                     <div class="clearfix"></div>
                                                                     <div class="form-group row clearfix">
+                                                                        <c:if test="${order.statusOrder != 2 }">
                                                                         <div class="col-sm-10">
                                                                             <button type="button" onclick="Order.updateStatus(${order.id})"
                                                                                     class="btn btn-primary">Sửa đổi
                                                                             </button>
                                                                         </div>
+                                                                        </c:if>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -504,7 +490,7 @@
                 console.info(page + ' (from options)');
             }
         }).on('page', function(event, page) {
-            window.location.href = "${pageContext.request.contextPath}/admin/brands?page=" + page;
+            window.location.href = "${pageContext.request.contextPath}/admin/list-orders?page=" + page;
         });
     });
 </script>

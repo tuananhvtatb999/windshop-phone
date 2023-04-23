@@ -1137,4 +1137,10 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance:textfield; /* Firefox */
 }
-
+.xtlab-ctmenu-item {
+    margin: 15px 15px 15px 0px;
+    height: 40px;
+    color: blue;
+    background: gainsboro;
+    width: 100%;
+}

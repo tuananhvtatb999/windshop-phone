@@ -64,7 +64,7 @@
                         IPhone <span class="primary">13 <strong>Plus</strong></span>
                     </h2>
                     <h4 class="caption subtitle">Dual SIM</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+                    <a class="caption button-radius" href="${pageContext.request.contextPath}/shop"><span class="icon"></span>Shop now</a>
                 </div>
             </li>
             <li><img src="/img/h4-slide3.jpg" alt="Slide">
@@ -140,95 +140,29 @@
                 <div class="latest-product">
                     <h2 class="section-title">Latest Products</h2>
                     <div class="product-carousel">
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="/img/product-5.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cartDto-link"><i class="fa fa-shopping-cartDto"></i> Add to cartDto</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                        <c:forEach var="product" items="${products}">
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <c:forEach var="productImages" end="0"
+                                               items="${product.productImages}">
+                                        <img src="../file/upload/${productImages.title}" height="100%" alt="">
+                                    </c:forEach>
+                                    <div class="product-hover">
+                                        <a onclick="${pageContext.request.userPrincipal != null} ? Cart.gioHang(${product.id},1) : Cart.redirect()"
+                                           class="add-to-cartDto-link"><i class="fa fa-shopping-cartDto"></i> Add to cartDto</a>
+                                        <a href="${pageContext.request.contextPath}/single-product?id=${product.id}"
+                                           class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="${pageContext.request.contextPath}/single-product?id=${product.id}">${product.title}</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins> <fmt:formatNumber type="number" maxIntegerDigits="13" value="${product.priceSale}" />đ</ins>
+                                    <del> <fmt:formatNumber type="number" maxIntegerDigits="13" value="${product.price}" /> đ</del>
                                 </div>
                             </div>
-
-                            <h2><a href="single-product.html">Samsung Galaxy A23</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>5.000.000</ins> <del>6.000.000</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="/img/product-2.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cartDto-link"><i class="fa fa-shopping-cartDto"></i> Add to cartDto</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-
-                            <h2>IPhone 13 </h2>
-                            <div class="product-carousel-price">
-                                <ins>15.000.000</ins> <del>20.000.000</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="/img/product-3.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cartDto-link"><i class="fa fa-shopping-cartDto"></i> Add to cartDto</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-
-                            <h2>Vivo V20</h2>
-
-                            <div class="product-carousel-price">
-                                <ins>2.000.000</ins> <del>3.000.000</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="/img/product-4.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cartDto-link"><i class="fa fa-shopping-cartDto"></i> Add to cartDto</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-
-                            <h2><a href="single-product.html">OPPO A57 </a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>4.000.000</ins> <del>5.000.000</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="/img/product-5.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cartDto-link"><i class="fa fa-shopping-cartDto"></i> Add to cartDto</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-
-                            <h2>iPhone 6</h2>
-
-                            <div class="product-carousel-price">
-                                <ins>12.000.000</ins> <del>13.550.00</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="/img/product-6.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cartDto-link"><i class="fa fa-shopping-cartDto"></i> Add to cartDto</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-
-                            <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>400.00</ins>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

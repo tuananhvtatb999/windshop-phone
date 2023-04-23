@@ -2,9 +2,12 @@ package com.windshop.phone.controller.admin;
 
 
 import com.windshop.phone.controller.BaseController;
+import com.windshop.phone.entity.Product;
 import com.windshop.phone.entity.SaleOrder;
+import com.windshop.phone.entity.SaleOrderProduct;
 import com.windshop.phone.enums.StatusOrder;
 import com.windshop.phone.model.AjaxResponse;
+import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.repository.SaleOrderRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,7 @@ import javax.websocket.server.PathParam;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -33,6 +37,9 @@ public class AdminOrderController extends BaseController {
 
     @Autowired
     SaleOrderRepository saleOrderRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @GetMapping("/list-orders")
     public String order(final HttpServletRequest request, final ModelMap model,
@@ -69,8 +76,17 @@ public class AdminOrderController extends BaseController {
     public ResponseEntity<AjaxResponse> updateStatus(@RequestBody String data) {
         JSONObject json = new JSONObject(data);
         SaleOrder order = saleOrderRepository.getOne(json.getInt("id"));
-        order.setStatusOrder(json.getInt("status"));
-        order.setStatusOrderName(StatusOrder.findByCode(json.getInt("status")).toString());
+        int status = json.getInt("status");
+        if(status == 1 && status != order.getStatusOrder()) {
+            for (SaleOrderProduct sale: order.getSaleOrderProducts()) {
+                Product product = sale.getProduct();
+                Product productInDB = productRepository.getReferenceById(product.getId());
+                product.setQuantity(productInDB.getQuantity() - sale.getQuantity());
+                productRepository.save(productInDB);
+            }
+        }
+        order.setStatusOrder(status);
+        order.setStatusOrderName(Objects.requireNonNull(StatusOrder.findByCode(status)).toString());
         order.setUpdatedDate(LocalDateTime.now());
         saleOrderRepository.save(order);
         return ResponseEntity.ok(new AjaxResponse(200,"Success"));

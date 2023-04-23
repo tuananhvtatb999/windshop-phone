@@ -103,6 +103,7 @@
                                             </div>
                                         </td>
                                         <td id="total-item-${item.maSanPham}"><fmt:formatNumber type="number" maxIntegerDigits="13" value="${item.soluong*item.giaban}" /> đ</td>
+                                        <input type="hidden" value="${item.soluong*item.giaban}" id="item-total-${item.maSanPham}"/>
                                     </tr>
                                     <c:set var="total" value="${total + item.soluong*item.giaban}" />
                                 </c:forEach>

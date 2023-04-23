@@ -15,6 +15,7 @@
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="${pageContext.request.contextPath}/admin/products">Danh sách sản phẩm</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/admin/products-seller">Danh sách sản phẩm bán chạy</a></li>
                                     <li><a href="${pageContext.request.contextPath}/admin/add-product">Thêm sản phẩm</a></li>
                                 </ul>
                             </li>

@@ -68,18 +68,27 @@ var Cart = {
             success: function (jsonResult) { // được gọi khi web-service trả về dữ liệu.
                 if (jsonResult.status === 200) {
                     $('#' + maSanPham).html(soluong * donGia);
-                    $('#total').html((Number(jsonResult.data) * donGia + total).toLocaleString('vi-VN', {
+
+                    $('#item-total-' + maSanPham).val((Number(jsonResult.data) * Number(donGia)))
+
+                    let total1 = 0;
+                    $('[id^=item-total-]').each(function(){
+                        total1 = Number(total1) + Number(this.value);
+                    });
+
+                    $('#total').html(Number(total1)).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
                     }));
-                    $('#order-total').html((Number(jsonResult.data) * donGia + total - 30000).toLocaleString('vi-VN', {
+
+                    $('#order-total').html(Number(total1) - 30000).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
                     }));
                     $('#total-item').html((soluong * donGia).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
-                    }));
+                    });
                 } else {
                     alert('loi');
                 }
@@ -109,20 +118,28 @@ var Cart = {
             success: function (jsonResult) { // được gọi khi web-service trả về dữ liệu.
                 if (jsonResult.status === 200) {
                     $('#' + maSanPham).val(Number(jsonResult.data));
-                    $('#total').html((Number(jsonResult.data) * donGia + total).toLocaleString('vi-VN', {
+                    $('#item-total-' + maSanPham).val((Number(jsonResult.data) * Number(donGia)))
+
+                    let total1 = 0;
+                    $('[id^=item-total-]').each(function(){
+                        total1 = Number(total1) + Number(this.value);
+                    });
+
+                    $('#total').html(parseInt(total1)).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
-                    }));
+                    });
                     $('#total-item-' + maSanPham).html((Number(jsonResult.data) * Number(donGia)).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
-                    }));
-                    $('#order-total').html((Number(jsonResult.data) * donGia + total - 30000).toLocaleString('vi-VN', {
+                    });
+                    $('#order-total').html(Number(total1) - 30000).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
-                    }));
-                } else {
-                    alert('loi');
+                    });
+                }
+                if (jsonResult.status === 400) {
+                    showNotification('top', 'right', 'Product has only quantity '+jsonResult.data, 4);
                 }
             },
             error: function (jqXhr, textStatus, errorMessage) { // error callback
@@ -340,7 +357,7 @@ var Order = {
     updateStatus : function(id) {
         var data = {};
         data['id'] = id;
-        data['status'] = $('input[name="gridRadios"]:checked').val();
+        data['status'] = $('input[name="gridRadios'+ id+'"]:checked').val();
 
         $.ajax({
             url: "/admin/update-status-order",

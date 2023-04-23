@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,9 +36,10 @@ public class AdminUserManageController {
         Pageable pageable = PageRequest.of(pageP - 1, 5);
         String search = request.getParameter("search");
         Page<User> userPage = userService.findAll(pageable);
+        List<User> userP = userPage.getContent().stream().filter(t -> !t.getRole().equals("ADMIN")).collect(Collectors.toList());
         if (search != null) {
             List<User> users = new ArrayList<>();
-            for (User user : userPage.getContent()) {
+            for (User user : userP) {
                 if (user.getEmail().toLowerCase().contains(search.toLowerCase()) || user.getId().toString().toLowerCase().contains(search.toLowerCase())
                         || user.getUsername().toLowerCase().contains(search.toLowerCase())) {
                     users.add(user);
@@ -45,7 +47,7 @@ public class AdminUserManageController {
             }
             model.addAttribute("users", users);
         } else {
-            model.addAttribute("users", userPage.getContent());
+            model.addAttribute("users", userP);
         }
         model.addAttribute("currentPage", pageP);
         model.addAttribute("total", userPage.getTotalPages());

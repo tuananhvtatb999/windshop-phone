@@ -1,5 +1,6 @@
 package com.windshop.phone.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**", "/js/**", "/images/**", "/summernote/**", "/vendor/**", "/assets/**").permitAll()
                 .antMatchers("/resources/**", "/file/upload/**").permitAll()
                 .antMatchers("/user/**").hasAnyAuthority("USER")
-                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/admin/user-management").hasAnyAuthority("ADMIN")
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomerAccessDeniedHandler())
 
@@ -65,4 +67,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 }

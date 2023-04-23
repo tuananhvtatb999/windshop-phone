@@ -14,12 +14,13 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 
 @Service
 public class UserServiceImpl implements IUserService {
 
-    private static final String ROOT_PATH = "D:\\Template\\windshop-phone\\upload";
+    private static final String ROOT_PATH = "C:\\Users\\vtanh5\\IdeaProjects\\windshop-phone\\upload\\";
 
     @Autowired
     private UserRepository userRepository;
@@ -52,6 +53,7 @@ public class UserServiceImpl implements IUserService {
         }
 
         if (StringUtils.isNotEmpty(user.getEmail())) {
+            userContext.setEmail(user.getEmail());
             userDb.setEmail(user.getEmail());
         }
 
@@ -78,10 +80,31 @@ public class UserServiceImpl implements IUserService {
     }
 
     public Page<User> findAll(Pageable pageable) {
-        return userRepository.findAll(pageable);
+        return userRepository.findAllByRoleIsIn(Arrays.asList("USER", "EMPLOYEE"), pageable);
     }
 
     public User findById(Integer id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    public void updateResetPasswordToken(String token, String email) {
+        User customer = userRepository.findByEmail(email);
+        if (customer != null) {
+            customer.setResetPasswordToken(token);
+            userRepository.save(customer);
+        }
+    }
+
+    public User getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+    public void updatePassword(User customer, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        customer.setPassword(encodedPassword);
+
+        customer.setResetPasswordToken(null);
+        userRepository.save(customer);
     }
 }

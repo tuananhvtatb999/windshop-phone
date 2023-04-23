@@ -38,7 +38,7 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         HttpSession httpSession = request.getSession();
 
         User userDetails = (User) authentication.getPrincipal();
-        if(userDetails.getRole().equals("ADMIN")){
+        if(userDetails.getRole().equals("ADMIN") || userDetails.getRole().equals("EMPLOYEE")){
             response.sendRedirect("admin");
             return;
         }

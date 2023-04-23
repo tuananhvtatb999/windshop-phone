@@ -16,8 +16,8 @@ public class SaleOrderProduct extends BaseEntity {
 	@JoinColumn(name = "product_id")
 	private Product product;
 	
-	@Column(name = "quality")
-	private Integer quality;
+	@Column(name = "quantity")
+	private Integer quantity;
 	
 	@Column(name = "price", precision = 13, scale = 0, nullable = false)
 	private BigDecimal price;
@@ -25,4 +25,10 @@ public class SaleOrderProduct extends BaseEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "saleorder_id")
 	private SaleOrder saleOrder;
+
+	@Column(name = "month")
+	private Integer month;
+
+	@Column(name = "year")
+	private Integer year;
 }
