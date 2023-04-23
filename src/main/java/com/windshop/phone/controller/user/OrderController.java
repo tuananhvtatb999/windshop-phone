@@ -1,9 +1,12 @@
 package com.windshop.phone.controller.user;
 
 import com.windshop.phone.controller.BaseController;
+import com.windshop.phone.entity.Product;
 import com.windshop.phone.entity.SaleOrder;
+import com.windshop.phone.entity.SaleOrderProduct;
 import com.windshop.phone.enums.StatusOrder;
 import com.windshop.phone.model.AjaxResponse;
+import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.service.impl.SaleOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +30,9 @@ public class OrderController extends BaseController {
     @Autowired
     private SaleOrderService saleOrderService;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @GetMapping("/order")
     public String index(@PathParam("page") Integer page,
                         final Model model) {
@@ -42,6 +48,14 @@ public class OrderController extends BaseController {
     @PostMapping("/cancel-order")
     public ResponseEntity<AjaxResponse> cancelOrder(@RequestBody Integer id) {
         SaleOrder saleOrder = saleOrderService.findById(id);
+        if(saleOrder.getStatusOrder() == 1) {
+            for (SaleOrderProduct sale: saleOrder.getSaleOrderProducts()) {
+                Product product = sale.getProduct();
+                Product productInDB = productRepository.getReferenceById(product.getId());
+                product.setQuantity(productInDB.getQuantity() + sale.getQuantity());
+                productRepository.save(productInDB);
+            }
+        }
         saleOrder.setStatusOrder(3);
         saleOrder.setStatusOrderName(StatusOrder.CANCELLED.toString());
         saleOrderService.updateSaleOrder(saleOrder);

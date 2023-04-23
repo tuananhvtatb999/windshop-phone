@@ -2,14 +2,19 @@ package com.windshop.phone.service.impl;
 
 import com.windshop.phone.entity.Product;
 import com.windshop.phone.entity.ProductImage;
+import com.windshop.phone.model.ProductSellerDto;
 import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.service.IProductService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -20,6 +25,9 @@ import java.util.Optional;
 public class ProductServiceImpl implements IProductService {
 
     private static final String ROOT_PATH = "D:\\Template\\windshop-phone\\upload";
+
+    @PersistenceContext
+    protected EntityManager entityManager;
 
     @Autowired
     private ProductRepository productRepository;
@@ -82,12 +90,37 @@ public class ProductServiceImpl implements IProductService {
         return productRepository.findAll(pageable);
     }
 
+    public Page<Product> shopProduct(Pageable pageable) {
+        return productRepository.findAllByStatus(1, pageable);
+    }
+
     public Page<Product> pageProductByBrand(Integer brandId, Pageable pageable) {
-        return productRepository.findAllByBrandId(brandId, pageable);
+        return productRepository.findAllByBrandIdAndStatus(brandId, 1, pageable);
     }
 
     public Page<Product> pageProductByCategory(Integer categoryId, Pageable pageable) {
-        return productRepository.findAllByCategoryId(categoryId, pageable);
+        return productRepository.findAllByCategoryIdAndStatus(categoryId, 1, pageable);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Product> filter(Integer price) {
+        String sql = "select * from tbl_product where 1=1 and status = 1";
+        if (ObjectUtils.isNotEmpty(price)) {
+            if (price == 5) {
+                sql += " AND price < 5000000";
+            }
+            if (price == 7) {
+                sql += " AND price >= 5000000 and price < 7000000";
+            }
+            if (price == 12) {
+                sql += " AND price >= 7000000 and price < 12000000";
+            }
+            if (price == 13) {
+                sql += " AND price >= 12000000";
+            }
+        }
+        Query query = entityManager.createNativeQuery(sql, Product.class);
+        return query.getResultList();
     }
 
     @Override

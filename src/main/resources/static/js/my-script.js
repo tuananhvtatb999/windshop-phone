@@ -84,12 +84,12 @@ var Cart = {
                     $('#total').html(Number(total1)).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
-                    }));
+                    });
 
                     $('#order-total').html(Number(total1) - 30000).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
-                    }));
+                    });
                     $('#total-item').html((soluong * donGia).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
@@ -135,7 +135,7 @@ var Cart = {
                         style: 'currency',
                         currency: 'VND'
                     });
-                    $('#total-item-' + maSanPham).html((Number(jsonResult.data) * Number(donGia)).toLocaleString('vi-VN', {
+                    $('#total-item-' + maSanPham).html((Number(jsonResult.data) * Number(donGia))).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
                     });

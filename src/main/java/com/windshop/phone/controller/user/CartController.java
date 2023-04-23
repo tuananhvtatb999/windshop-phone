@@ -145,6 +145,10 @@ public class CartController extends BaseController {
         List<ProductInCart> _sanPhamTrongGioHangs = gioHang.getProductInCarts();
         for (ProductInCart item : _sanPhamTrongGioHangs) {
             if (item.getMaSanPham() == sanPhamTrongGioHang.getMaSanPham()) {
+                Product product = productRepository.getReferenceById(item.getMaSanPham());
+                if (product.getQuantity() < sanPhamTrongGioHang.getSoluong()) {
+                    return ResponseEntity.ok(new AjaxResponse(400, product.getQuantity()));
+                }
                 item.setSoluong(sanPhamTrongGioHang.getSoluong() + item.getSoluong());
                 sl = item.getSoluong();
             }
@@ -174,10 +178,12 @@ public class CartController extends BaseController {
         for (ProductInCart sanPhamTrongGioHang : gioHang.getProductInCarts()) {
             SaleOrderProduct saleOrderProduct = new SaleOrderProduct();
             saleOrderProduct.setProduct(productRepository.getOne(sanPhamTrongGioHang.getMaSanPham()));
-            saleOrderProduct.setQuality(sanPhamTrongGioHang.getSoluong());
+            saleOrderProduct.setQuantity(sanPhamTrongGioHang.getSoluong());
             saleOrderProduct.setPrice(sanPhamTrongGioHang.getGiaban());
             saleOrderProduct.setCreatedDate(LocalDateTime.now());
             saleOrder.addSaleOrderProducts(saleOrderProduct);
+            saleOrderProduct.setMonth(LocalDateTime.now().getMonthValue());
+            saleOrderProduct.setYear(LocalDateTime.now().getYear());
         }
 
         saleOrderRepository.save(saleOrder);
@@ -199,9 +205,15 @@ public class CartController extends BaseController {
                 productCart.setQuantity(sanPhamTrongGioHang.getSoluong());
                 product.setQuantity(product.getQuantity() - sanPhamTrongGioHang.getSoluong());
 
+                if(product.getQuantity() < 1){
+                    product.setStatus(0);
+                    productRepository.save(product);
+                }
+
                 productCartRepository.save(productCart);
             }
         }
+
 
         httpSession.removeAttribute("GIO_HANG");
         httpSession.removeAttribute("SL_SP_GIO_HANG");
