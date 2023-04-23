@@ -52,7 +52,12 @@ var Cart = {
         });
     },
 
-    updateGioHang: function (maSanPham, donGia, soluong, total) {
+    updateGioHang: function (maSanPham, donGia, e, total) {
+        var soluong = e.value;
+        if (Number(soluong) < 1) {
+            showNotification('top', 'right', 'Please input number more than 0!', 4);
+            return;
+        }
         var data = {};
         data["maSanPham"] = maSanPham;
         data["donGia"] = donGia;
@@ -88,9 +93,10 @@ var Cart = {
                     $('#total-item').html((soluong * donGia).toLocaleString('vi-VN', {
                         style: 'currency',
                         currency: 'VND'
-                    });
-                } else {
-                    alert('loi');
+                    }));
+                }
+                if (jsonResult.status === 400) {
+                    showNotification('top', 'right', 'Product has only quantity '+jsonResult.data, 4);
                 }
             },
             error: function (jqXhr, textStatus, errorMessage) { // error callback
@@ -296,6 +302,10 @@ var Account = {
     },
 
     changeInformation: function () {
+        if (!$('#firstName').val() || !$('#lastName').val() || !$('#email').val() || !$('#phoneNumber').val() || !$('#address').val()) {
+            showNotification('top', 'right', 'Fill fully!', 1)
+            return;
+        }
         if (!isEmail($('#email').val())) {
             showNotification('top', 'right', 'Email invalid!', 4);
             return;
@@ -325,6 +335,9 @@ var Account = {
             cache: false,
             timeout: 1000000,
             success: function (jsonResult) {
+                if (jsonResult.status === 200 && jsonResult.data === "email") {
+                    showNotification('top', 'right', 'Please refill email, email exist!', 3);
+                }
                 if (jsonResult.status === 200 && jsonResult.data === "Success") {
                     showNotification('top', 'right', 'Change information success', 2);
                 }

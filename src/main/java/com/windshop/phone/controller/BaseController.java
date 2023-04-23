@@ -2,7 +2,6 @@ package com.windshop.phone.controller;
 
 import com.windshop.phone.entity.Brand;
 import com.windshop.phone.entity.Category;
-import com.windshop.phone.repository.BrandRepository;
 import com.windshop.phone.repository.CategoryRepository;
 import com.windshop.phone.service.impl.BrandServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +23,15 @@ public abstract class BaseController {
     private CategoryRepository categoryRepository;
 
     @ModelAttribute("brands")
-    public List<Brand> getBrand(){
-        Pageable pageable = PageRequest.of(0, 20);
+    public List<Brand> getBrand() {
+        Pageable pageable = PageRequest.of(0, 5);
         Page<Brand> brandPage = brandService.getBrands(pageable);
         return brandPage.getContent();
     }
 
     @ModelAttribute("categories")
-    public List<Category> getCategories(){
-        Pageable pageable = PageRequest.of(0, 20);
+    public List<Category> getCategories() {
+        Pageable pageable = PageRequest.of(0, 5);
         Page<Category> categoryPage = categoryRepository.findAllByStatus(1, pageable);
         return categoryPage.getContent();
     }

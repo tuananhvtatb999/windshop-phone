@@ -58,15 +58,33 @@
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            <c:forEach var="product" items="${products}">
+            <div class="col-md-3">
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Search Products</h2>
+                    <form action="${pageContext.request.contextPath}/shop" method="get">
+                        <input type="text" placeholder="Search products..." id="search" name="search"/>
+                        <div class="xt-ct-menu">
+                            <select class="xtlab-ctmenu-item" id="gia" name="gia">
+                                <option value="" selected disabled hidden>Khoảng giá</option>
+                                <option value="5">Dưới 5 triệu</option>
+                                <option value="7">Từ 5 triệu - 7 triệu</option>
+                                <option value="12">Từ 7 triệu - 12 triệu</option>
+                                <option value="13">Trên 12 triệu</option>
+                            </select>
+                        </div>
+                        <input type="submit" value="Search"/>
+                    </form>
+                </div>
+            </div>
+                <c:forEach var="product" items="${products}">
 
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="single-shop-product">
                         <div class="product-upper">
                         <c:forEach var="productImages" end="0"
                                    items="${product.productImages}">
                             <img src="../file/upload/${productImages.title}" width="100%"
-                                 height="300px" />
+                                 height="200px" />
                         </c:forEach>
                         </div>
                         <h2><a href="${pageContext.request.contextPath}/single-product?id=${product.id}">${product.title}</a></h2>

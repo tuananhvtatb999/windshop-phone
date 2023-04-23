@@ -128,7 +128,7 @@
                             <div class="clear"></div>
                         </form>
 
-                        <form enctype="multipart/form-data" action="${pageContext.request.contextPath}/checkout" class="checkout" method="post" name="checkout">
+                        <form enctype="multipart/form-data" action="${pageContext.request.contextPath}/checkout" id="checkoutForm" class="checkout" method="post" name="checkout">
 
                             <div id="customer_details" class="col2-set">
                                 <div class="col-1">
@@ -137,9 +137,9 @@
 
                                         <p id="billing_first_name_field" class="form-row form-row-first validate-required" style="margin-top: 30px">
                                         <div class="form-group">
-                                        <h4 class="" style="margin-bottom: 30px" >Your address</h4> <div
-                                                type="text" class="form-control" id="address"
-                                                ></div>
+                                        <h4 class="" style="margin-bottom: 10px" >Your address</h4> <label
+                                                type="text" id="address"
+                                                >${address}</label>
                                         </div>
 
                                     </div>
@@ -206,5 +206,13 @@
 <jsp:include page="/WEB-INF/views/user/common/footer.jsp"></jsp:include>
 
 <jsp:include page="/WEB-INF/views/user/common/js.jsp"></jsp:include>
+<script type="text/javascript">
+    $('#checkoutForm').submit(function() {
+        if (!$('#address').html()) {
+            showNotification('top', 'right', 'Please fill your address!', 1)
+            return false;
+        }
+    });
+</script>
 </body>
 </html>

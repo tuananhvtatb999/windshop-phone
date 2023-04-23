@@ -1,5 +1,6 @@
 package com.windshop.phone.controller.user;
 
+import com.windshop.phone.controller.BaseController;
 import com.windshop.phone.entity.SaleOrder;
 import com.windshop.phone.enums.StatusOrder;
 import com.windshop.phone.model.AjaxResponse;
@@ -21,7 +22,7 @@ import javax.websocket.server.PathParam;
 
 @Controller
 @RequestMapping("/user")
-public class OrderController {
+public class OrderController extends BaseController {
 
     @Autowired
     private SaleOrderService saleOrderService;

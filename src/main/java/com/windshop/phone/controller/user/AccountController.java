@@ -1,5 +1,6 @@
 package com.windshop.phone.controller.user;
 
+import com.windshop.phone.controller.BaseController;
 import com.windshop.phone.entity.User;
 import com.windshop.phone.model.AjaxResponse;
 import com.windshop.phone.model.UserDto;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("user")
-public class AccountController {
+public class AccountController extends BaseController {
 
     @Autowired
     private UserServiceImpl userService;
@@ -51,6 +52,9 @@ public class AccountController {
 
     @PostMapping("/change-information")
     public ResponseEntity<AjaxResponse> changeInformation(@ModelAttribute UserDto user) throws JSONException, IOException {
+        if(userService.findByEmail(user.getEmail()) != null) {
+             return ResponseEntity.ok(new AjaxResponse(200, "email"));
+        }
         userService.update(user);
         return ResponseEntity.ok(new AjaxResponse(200, "Success"));
     }
