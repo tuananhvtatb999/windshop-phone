@@ -319,6 +319,7 @@ var Account = {
         data.append("firstName", $('#firstName').val());
         data.append("lastName", $('#lastName').val());
         data.append("email", $('#email').val());
+        data.append("emailOld", $('#emailOld').val());
         data.append("phoneNumber", $('#phoneNumber').val());
         data.append("address", $('#address').val());
         if ($('#image')[0].files[0]) {

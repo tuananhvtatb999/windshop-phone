@@ -24,7 +24,7 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements IProductService {
 
-    private static final String ROOT_PATH = "D:\\Template\\windshop-phone\\upload";
+    private static final String ROOT_PATH = "E:\\wind-shop_Doan\\upload\\";
 
     @PersistenceContext
     protected EntityManager entityManager;

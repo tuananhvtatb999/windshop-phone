@@ -14,3 +14,5 @@
         <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css">
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
         <link href="/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+          <link rel="stylesheet" href="/resources/demos/style.css">

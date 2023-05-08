@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("user")
@@ -52,7 +53,7 @@ public class AccountController extends BaseController {
 
     @PostMapping("/change-information")
     public ResponseEntity<AjaxResponse> changeInformation(@ModelAttribute UserDto user) throws JSONException, IOException {
-        if(userService.findByEmail(user.getEmail()) != null) {
+        if(userService.findByEmail(user.getEmail()) != null && Objects.equals(user.getEmail(), user.getEmailOdl())) {
              return ResponseEntity.ok(new AjaxResponse(200, "email"));
         }
         userService.update(user);

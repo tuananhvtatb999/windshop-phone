@@ -13,6 +13,11 @@
 	name="description">
 <meta content="Themesbrand" name="author">
 <jsp:include page="/WEB-INF/views/admin/common/css.jsp"></jsp:include>
+<style>
+    .ui-datepicker-calendar {
+    display: none;
+    }
+</style
 </head>
 
 <body data-sidebar="dark">
@@ -46,6 +51,9 @@
                             </div>
                         </div>
                         <!-- end page title -->
+
+                            <label for="startDate">Month :</label>
+                            <input name="startDate" id="startDate" class="date-picker" />
 
                         <div class="row">
                             <div class="col-xl-4">
@@ -99,24 +107,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="card mini-stats-wid">
-                                            <div class="card-body">
-                                                <div class="media">
-                                                    <div class="media-body">
-                                                        <p class="text-muted font-weight-medium">Average Price</p>
-                                                        <h4 class="mb-0">$16.2</h4>
-                                                    </div>
 
-                                                    <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
-                                                        <span class="avatar-title rounded-circle bg-primary">
-                                                            <i class="bx bx-purchase-tag-alt font-size-24"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <!-- end row -->
 
@@ -240,6 +231,41 @@
             }).on('page', function(event, page) {
                 window.location.href = "${pageContext.request.contextPath}/admin?page=" + page;
             });
+
+            $('.date-picker').datepicker(
+                                        {
+                                            dateFormat: "mm/yy",
+                                            changeMonth: true,
+                                            changeYear: true,
+                                            showButtonPanel: true,
+                                            onClose: function(dateText, inst) {
+
+
+                                                function isDonePressed(){
+                                                    return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
+                                                }
+
+                                                if (isDonePressed()){
+                                                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                                                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                                                    $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
+
+                                                     $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
+                                                }
+                                            },
+                                            beforeShow : function(input, inst) {
+
+                                                inst.dpDiv.addClass('month_year_datepicker')
+
+                                                if ((datestr = $(this).val()).length > 0) {
+                                                    year = datestr.substring(datestr.length-4, datestr.length);
+                                                    month = datestr.substring(0, 2);
+                                                    $(this).datepicker('option', 'defaultDate', new Date(year, month-1, 1));
+                                                    $(this).datepicker('setDate', new Date(year, month-1, 1));
+                                                    $(".ui-datepicker-calendar").hide();
+                                                }
+                                            }
+                                        })
         });
     </script>
 

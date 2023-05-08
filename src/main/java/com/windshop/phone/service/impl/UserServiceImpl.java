@@ -71,6 +71,7 @@ public class UserServiceImpl implements IUserService {
                     ROOT_PATH + user.getImage().getOriginalFilename()));
             userDb.setAvatar(user.getImage().getOriginalFilename());
         }
+        userDb.setUpdatedDate(LocalDateTime.now());
         userRepository.save(userDb);
     }
 

@@ -58,7 +58,7 @@
     <h2>Reset Your Password</h2>
 </div>
 
-<form action=${pageContext.request.contextPath}/rest-password" method="post" style="max-width: 350px; margin: 0 auto;">
+<form action=${pageContext.request.contextPath}/reset-password method="post" style="max-width: 350px; margin: 0 auto;">
     <input type="hidden" name="token" value="${token}" />
     <div class="border border-secondary rounded p-3">
         <div>

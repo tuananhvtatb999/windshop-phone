@@ -36,4 +36,6 @@
 <script
 		src="https://cdn.tutorialjinni.com/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
 <script type="text/javascript" src="/js/my-script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 

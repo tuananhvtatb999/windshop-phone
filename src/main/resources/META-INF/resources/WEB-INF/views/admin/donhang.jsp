@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Danh sách sản phẩm</title>
+    <title>Danh sách đơn hàng</title>
     <jsp:include page="/WEB-INF/views/admin/common/css.jsp"></jsp:include>
 </head>
 <body data-sidebar="dark">
@@ -76,6 +76,7 @@
                                         <tr>
 
                                             <th>Mã đơn hàng</th>
+                                            <th>Tên khách hàng</th>
                                             <th>Ngày tạo</th>
                                             <th>Ngày sửa gần nhất</th>
                                             <th>Tổng tiền</th>
@@ -92,6 +93,7 @@
 
                                                 <td><a href="javascript: void(0);"
                                                        class="text-body font-weight-bold">${order.code }</a></td>
+                                                       <td>${order.user.firstName} ${order.user.lastName }</td>
                                                 <fmt:parseDate value="${order.createdDate}" type="date"
                                                                pattern="yyyy-MM-dd" var="parsedDate"/>
                                                 <fmt:formatDate value="${parsedDate}" var='startFormat' type='date'

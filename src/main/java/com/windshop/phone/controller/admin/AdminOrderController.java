@@ -55,7 +55,9 @@ public class AdminOrderController extends BaseController {
         if (search != null) {
             List<SaleOrder> saleOrders = new ArrayList<>();
             for (SaleOrder saleOrder : saleOrderRepository.findAll()) {
-                if (saleOrder.getCode().toLowerCase().equals(search.toLowerCase())) {
+                if (saleOrder.getCode().equalsIgnoreCase(search) ||
+                saleOrder.getUser().getFirstName().equalsIgnoreCase(search) ||
+                        saleOrder.getUser().getLastName().equalsIgnoreCase(search)) {
                     saleOrders.add(saleOrder);
                 }
             }

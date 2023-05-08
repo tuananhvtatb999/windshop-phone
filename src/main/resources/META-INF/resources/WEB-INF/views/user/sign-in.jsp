@@ -22,7 +22,7 @@
         <div class="container">
             <div class="signin-content">
                 <div class="signin-image">
-                    <figure><img src="/login/images/signin-image.jpg" alt="sing up image"></figure>
+                    <figure><img src="/login/images/sign_in.jpg" alt="sing up image"></figure>
                     <a href="${pageContext.request.contextPath}/sign-up" class="signup-image-link">Create an account</a>
                 </div>
 

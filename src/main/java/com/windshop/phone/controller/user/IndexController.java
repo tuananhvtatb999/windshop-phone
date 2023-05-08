@@ -35,6 +35,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -86,9 +87,9 @@ public class IndexController extends BaseController {
         List<Product> productSearch = new ArrayList<>();
 
         if (StringUtils.isNotEmpty(search)) {
-            productSearch = productList.getContent().stream().filter(t -> t.getTitle().contains(search)
-                    || t.getBrand().getName().contains(search)
-                    || t.getCategory().getName().contains(search))
+            productSearch = productList.getContent().stream().filter(t -> t.getTitle().toLowerCase().contains(search.toLowerCase())
+                    || t.getBrand().getName().toLowerCase().contains(search.toLowerCase())
+                    || t.getCategory().getName().toLowerCase().contains(search.toLowerCase()))
                     .collect(Collectors.toList());
         }
 
@@ -156,6 +157,7 @@ public class IndexController extends BaseController {
         }
 
         userForm.setRole("USER");
+        userForm.setCreatedDate(LocalDateTime.now());
         userService.save(userForm);
         redirectAttributes.addFlashAttribute("message", "success");
 
@@ -184,8 +186,8 @@ public class IndexController extends BaseController {
         return "user/forgot-password";
     }
 
-    @GetMapping("/reset_password")
-    public String showResetPasswordForm(@Param(value = "token") String token, Model model) {
+    @GetMapping("/reset-password")
+    public String showResetPasswordForm(@PathParam(value = "token") String token, Model model) {
         User customer = userService.getByResetPasswordToken(token);
         model.addAttribute("token", token);
 
@@ -197,7 +199,7 @@ public class IndexController extends BaseController {
         return "user/reset-password";
     }
 
-    @PostMapping("/reset_password")
+    @PostMapping("/reset-password")
     public String processResetPassword(HttpServletRequest request, Model model) {
         String token = request.getParameter("token");
         String password = request.getParameter("password");
@@ -214,7 +216,7 @@ public class IndexController extends BaseController {
             model.addAttribute("message", "You have successfully changed your password.");
         }
 
-        return "message";
+        return "redirect:/home";
     }
 
     public void sendEmail(String recipientEmail, String link)

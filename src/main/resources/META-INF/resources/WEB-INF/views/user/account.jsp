@@ -192,6 +192,9 @@
                                         <label for="email">Email</label>
                                         <input type="text" class="form-control" id="email" value="${user.email}"
                                                name="email">
+
+                                                <input type="hidden" class="form-control" id="emailOld" value="${user.email}"
+                                                                                              name="emailOld">
                                     </div>
                                 </div>
                                 <div class="col-sm-12 text-center" style="padding-bottom: 30px;">

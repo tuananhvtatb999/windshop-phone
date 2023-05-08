@@ -202,7 +202,7 @@
                     <a href="" class="wid-view-more">View All</a>
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="/img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
+                        <h2><a href="single-product.html">Realme GT</a></h2>
                         <div class="product-wid-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -216,7 +216,7 @@
                     </div>
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="/img/product-thumb-2.jpg" alt="" class="product-thumb"></a>
-                        <h2><a href="single-product.html">Apple new mac book 2015</a></h2>
+                        <h2><a href="single-product.html">Vivo X70 Pro+</a></h2>
                         <div class="product-wid-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -230,7 +230,7 @@
                     </div>
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="/img/product-thumb-13.jpg" alt="" class="product-thumb"></a>
-                        <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                        <h2><a href="single-product.html">IPhone 13</a></h2>
                         <div class="product-wid-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -250,7 +250,7 @@
                     <a href="#" class="wid-view-more">View All</a>
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="/img/product-thumb-4.jpg" alt="" class="product-thumb"></a>
-                        <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
+                        <h2><a href="single-product.html">Samsung A93</a></h2>
                         <div class="product-wid-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -264,7 +264,7 @@
                     </div>
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="/img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
-                        <h2><a href="single-product.html">Sony Smart Air Condtion</a></h2>
+                        <h2><a href="single-product.html">Xiaomi Mi 11 </a></h2>
                         <div class="product-wid-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -298,7 +298,7 @@
                     <a href="#" class="wid-view-more">View All</a>
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="/img/product-thumb-13.jpg" alt="" class="product-thumb"></a>
-                        <h2><a href="single-product.html">Apple new i phone 6</a></h2>
+                        <h2><a href="single-product.html">Apple Iphone 6</a></h2>
                         <div class="product-wid-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -326,7 +326,7 @@
                     </div>
                     <div class="single-wid-product">
                         <a href="single-product.html"><img src="/img/product-thumb-1.jpg" alt="" class="product-thumb"></a>
-                        <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
+                        <h2><a href="single-product.html">Samsung A51</a></h2>
                         <div class="product-wid-rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
