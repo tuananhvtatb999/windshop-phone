@@ -32,6 +32,10 @@ public class SaleOrder extends BaseEntity {
     @Column(name = "status_order_name")
     private String statusOrderName;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "lastest_update_by")
+    private User lastestUpdateBy;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "saleOrder", fetch = FetchType.EAGER)
     private List<SaleOrderProduct> saleOrderProducts = new ArrayList<>();
 

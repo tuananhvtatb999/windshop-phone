@@ -4,6 +4,7 @@ import com.windshop.phone.entity.User;
 import com.windshop.phone.model.UserDto;
 import com.windshop.phone.repository.UserRepository;
 import com.windshop.phone.service.IUserService;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Objects;
 
 
 @Service
@@ -85,6 +88,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     public User findById(Integer id) {
+        if (ObjectUtils.isEmpty(id)) {
+            return null;
+        }
         return userRepository.findById(id).orElse(null);
     }
 

@@ -1,5 +1,7 @@
 <!-- JAVASCRIPT -->
-<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<%--<script src="/assets/libs/jquery/jquery.min.js"></script>--%>
 <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/libs/metismenu/metisMenu.min.js"></script>
 <script src="/assets/libs/simplebar/simplebar.min.js"></script>

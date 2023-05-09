@@ -12,6 +12,12 @@
 <meta content="Premium Multipurpose Admin & Dashboard Template"
 	name="description">
 <meta content="Themesbrand" name="author">
+    <style>
+        .ui-datepicker-calendar {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
 <jsp:include page="/WEB-INF/views/admin/common/css.jsp"></jsp:include>
 <style>
     .ui-datepicker-calendar {
@@ -55,6 +61,11 @@
                             <label for="startDate">Month :</label>
                             <input name="startDate" id="startDate" class="date-picker" />
 
+                        <div class="d-flex align-content-center justify-content-sm-between" style=" width: 310px;">
+                            <div>In Month: <input type="text" id="datepicker" style="height: 35px;" placeholder="Select month and year" readonly/></div>
+                            <button type="button" id="view" class="btn btn-primary">View</button>
+                        </div>
+
                         <div class="row">
                             <div class="col-xl-4">
                                 <div class="card">
@@ -62,8 +73,8 @@
                                         <h4 class="card-title mb-4">Monthly Earning</h4>
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <p class="text-muted">This month</p>
-                                                <h4>${totalMonth} đ</h4>
+                                                <p class="text-muted">This month : ${month} - ${year}</p>
+                                                <h4>${totalMonth != null ? totalMonth : 0} đ</h4>
                                             </div>
                                         </div>
                                     </div>
@@ -96,6 +107,25 @@
                                                     <div class="media-body">
                                                         <p class="text-muted font-weight-medium">Products Sold</p>
                                                         <h4 class="mb-0">${quantityProduct}</h4>
+                                                    </div>
+
+                                                    <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
+                                                        <span class="avatar-title rounded-circle bg-primary">
+                                                            <i class="bx bx-archive-in font-size-24"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="card mini-stats-wid">
+                                            <div class="card-body">
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <p class="text-muted font-weight-medium">Best Seller</p>
+                                                        <h4 class="mb-0">${bestSeller}</h4>
                                                     </div>
 
                                                     <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
@@ -150,6 +180,7 @@
                                                     <th>Ngày sửa gần nhất</th>
                                                     <th>Tổng tiền</th>
                                                     <th>Trạng thái đơn hàng</th>
+                                                    <th>Nhân viên hoàn thành</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -189,6 +220,7 @@
                                                                         value="Đã huỷ"/></span>
                                                             </c:if>
                                                         </td>
+                                                        <td><span>${order.lastestUpdateBy.firstName} ${order.lastestUpdateBy.lastName}</span></td>
                                                     </tr>
                                                 </c:forEach>
                                                 </tbody>
@@ -207,7 +239,7 @@
                 </div>
                 <!-- End Page-content -->
 		</div>
-		
+
 		<!-- Footer -->
 		<jsp:include page="/WEB-INF/views/admin/common/footer.jsp"></jsp:include>
 		<!-- Footer End-->
@@ -222,6 +254,28 @@
 	<jsp:include page="/WEB-INF/views/admin/common/js.jsp"></jsp:include>
     <script type="text/javascript">
         $(function() {
+
+            var selectedYear = new Date().getFullYear();
+            var selectedMonth = new Date().getMonth() + 1;
+
+            $('#datepicker').datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: true,
+                    dateFormat: 'mm-yy',
+                    onClose: function(dateText, inst) {
+                        $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                        selectedMonth = Number(inst.selectedMonth) + 1;
+                        selectedYear = inst.selectedYear;
+                    },
+            });
+            $('#view').click(function () {
+                window.location.href = "${pageContext.request.contextPath}/admin?month=" + selectedMonth + "&&year=" + selectedYear;
+            })
+
+            // $('#datepicker').click(function () {
+            //     $(this).datepicker('setDate', new Date(Number(selectedYear), Number(selectedMonth), 1));
+            // })
             window.pagObj = $('#pagination').twbsPagination({
                 totalPages : ${total},
                 startPage: ${currentPage},
@@ -229,7 +283,7 @@
                     console.info(page + ' (from options)');
                 }
             }).on('page', function(event, page) {
-                window.location.href = "${pageContext.request.contextPath}/admin?page=" + page;
+                window.location.href = "${pageContext.request.contextPath}/admin?page=" + page + "&&month=" + selectedMonth + "&&year=" + selectedYear;
             });
 
             $('.date-picker').datepicker(

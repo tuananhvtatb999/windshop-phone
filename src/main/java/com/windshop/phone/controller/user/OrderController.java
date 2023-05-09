@@ -4,15 +4,18 @@ import com.windshop.phone.controller.BaseController;
 import com.windshop.phone.entity.Product;
 import com.windshop.phone.entity.SaleOrder;
 import com.windshop.phone.entity.SaleOrderProduct;
+import com.windshop.phone.entity.User;
 import com.windshop.phone.enums.StatusOrder;
 import com.windshop.phone.model.AjaxResponse;
 import com.windshop.phone.repository.ProductRepository;
 import com.windshop.phone.service.impl.SaleOrderService;
+import com.windshop.phone.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -32,6 +35,9 @@ public class OrderController extends BaseController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private UserServiceImpl userService;
 
     @GetMapping("/order")
     public String index(@PathParam("page") Integer page,
@@ -56,6 +62,9 @@ public class OrderController extends BaseController {
                 productRepository.save(productInDB);
             }
         }
+        User userLogged = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByEmail(userLogged.getEmail());
+        saleOrder.setLastestUpdateBy(user);
         saleOrder.setStatusOrder(3);
         saleOrder.setStatusOrderName(StatusOrder.CANCELLED.toString());
         saleOrderService.updateSaleOrder(saleOrder);
